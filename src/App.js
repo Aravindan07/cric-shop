@@ -1,3 +1,4 @@
+import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import Cart from "./Cart";
 import Navbar from "./components/Navbar";
@@ -9,9 +10,11 @@ function App() {
 		<div className="flex-col">
 			<Navbar />
 			<div className="main-container w100 padding-t8 padding-b8">
-				<Products />
-				<Cart />
-				<Wishlist />
+				<Switch>
+					<Route path="/" exact component={Products} />
+					<Route path="/cart" component={Cart} />
+					<Route path="/wishlist" component={Wishlist} />
+				</Switch>
 			</div>
 		</div>
 	);

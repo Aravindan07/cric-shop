@@ -1,0 +1,45 @@
+.card {
+	flex-direction: row;
+	max-width: 100%;
+}
+
+.image-container {
+	width: 35%;
+	height: auto;
+	border-radius: 10px;
+}
+
+.image-container img {
+	border-radius: 15px;
+}
+
+.card__body {
+	position: relative;
+}
+
+.wishlist-icon-container {
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+	width: 40px;
+	height: 40px;
+	background-color: #fff;
+	border-radius: 50%;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+}
+
+.wishlist-icon-container svg {
+	width: 60%;
+	height: 60%;
+	margin: 10px 8px;
+	color: #9b9999;
+}
+
+.product__desc {
+	max-width: 75%;
+}
+
+.rating {
+	padding: 0.2rem;
+}
