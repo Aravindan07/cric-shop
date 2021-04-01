@@ -1,9 +1,11 @@
 import React from "react";
+import Card from "./components/Card";
 
 function Wishlist() {
 	return (
-		<div>
-			<h2>This is the Wishlist Page</h2>
+		<div className="padding-t8 padding-b8 padding-l8 padding-r8">
+			<h2 className="text-center">My Wishlist</h2>
+			<Card />
 		</div>
 	);
 }

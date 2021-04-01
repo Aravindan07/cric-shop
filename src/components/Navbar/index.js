@@ -13,22 +13,31 @@ function Navbar() {
 				{/* Change the className to flex-row-space-between after pushing the component library  */}
 				<div className="flex-row-space-between">
 					<div className="nav-logo-container">
-						<ReactSVG
+						<img
 							className="menu-icon-dimensions mb-2 mr-8 c-pointer"
 							src={MenuIcon}
+							alt="icon"
 						/>
 						<a className="navbar__title ls-1 mb-5" href="/">
 							cric shop
 						</a>
 					</div>
 					<div className="navigation flex-row-space-between">
-						<ReactSVG className="nav-icon-dimensions mr-16 c-pointer" src={HeartIcon} />
-						<ReactSVG className="nav-icon-dimensions mr-8 c-pointer" src={CartIcon} />
+						<img
+							className="nav-icon-dimensions mr-16 c-pointer"
+							src={HeartIcon}
+							alt="icon"
+						/>
+						<img
+							className="nav-icon-dimensions mr-8 c-pointer"
+							src={CartIcon}
+							alt="icon"
+						/>
 					</div>
 				</div>
 				{/* Remove the styles in App.css after pushing the component library  */}
 				<div className="search__wrap">
-					<ReactSVG className="search-icon" src={SearchIcon} />
+					<img className="search-icon" src={SearchIcon} alt="icon" />
 					<input
 						className="search-input padding-l32 padding-r8"
 						type="text"
