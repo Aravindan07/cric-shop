@@ -4,13 +4,19 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import setupMockServer from "./api/mock.server.js";
+import WishListProvider from "./context/wishlistContext";
+import CartListProvider from "./context/cartContext.js";
 
 setupMockServer();
 
 ReactDOM.render(
 	<React.StrictMode>
 		<BrowserRouter>
-			<App />
+			<WishListProvider>
+				<CartListProvider>
+					<App />
+				</CartListProvider>
+			</WishListProvider>
 		</BrowserRouter>
 	</React.StrictMode>,
 	document.getElementById("root")
