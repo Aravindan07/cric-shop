@@ -1,12 +1,16 @@
-import React from "react";
-// import { ReactSVG } from "react-svg";
 import { ReactComponent as WishListIcon } from "../../icons/card-wish-icon.svg";
 import { useAxios } from "../../utils/useAxios";
 import "./styles.css";
 
 function Card() {
-	const [data, loading, error] = useAxios("/api/products");
+	const [data, setData, loading, error] = useAxios("/api/products");
 	console.log(data, loading, error);
+	const setWishListed = (itemId) => {
+		return setData((prevState) =>
+			prevState.map((el) => (el.id === itemId ? { ...el, wishListed: !el.wishListed } : el))
+		);
+	};
+	// console.log("updated data", data);
 	return (
 		<>
 			{data.map((el) => (
@@ -21,7 +25,10 @@ function Card() {
 					</div>
 					<div className="card__body">
 						<div className="wishlist-icon-container">
-							<WishListIcon fill="#9b9999" />
+							<WishListIcon
+								fill={el.wishListed ? "red" : "#9b9999"}
+								onClick={() => setWishListed(el.id)}
+							/>
 						</div>
 						<div className="product__desc">
 							<p className="ls-1 product__name mb-5">{el.name}</p>

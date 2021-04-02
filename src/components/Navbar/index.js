@@ -1,8 +1,8 @@
 import React from "react";
-import { ReactSVG } from "react-svg";
-import MenuIcon from "../../icons/menu-icon.svg";
-import CartIcon from "../../icons/cart-icon.svg";
-import HeartIcon from "../../icons/heart-icon.svg";
+import { Link } from "react-router-dom";
+import { ReactComponent as MenuIcon } from "../../icons/menu-icon.svg";
+import { ReactComponent as CartIcon } from "../../icons/cart-icon.svg";
+import { ReactComponent as HeartIcon } from "../../icons/heart-icon.svg";
 import SearchIcon from "../../icons/search.svg";
 
 function Navbar() {
@@ -13,26 +13,18 @@ function Navbar() {
 				{/* Change the className to flex-row-space-between after pushing the component library  */}
 				<div className="flex-row-space-between">
 					<div className="nav-logo-container">
-						<img
-							className="menu-icon-dimensions mb-2 mr-8 c-pointer"
-							src={MenuIcon}
-							alt="icon"
-						/>
-						<a className="navbar__title ls-1 mb-5" href="/">
+						<MenuIcon className="menu-icon-dimensions mb-2 mr-8 c-pointer" />
+						<Link className="navbar__title ls-1 mb-5" to="/">
 							cric shop
-						</a>
+						</Link>
 					</div>
 					<div className="navigation flex-row-space-between">
-						<img
-							className="nav-icon-dimensions mr-16 c-pointer"
-							src={HeartIcon}
-							alt="icon"
-						/>
-						<img
-							className="nav-icon-dimensions mr-8 c-pointer"
-							src={CartIcon}
-							alt="icon"
-						/>
+						<Link to="/wishlist">
+							<HeartIcon className="nav-icon-dimensions mr-16 c-pointer" />
+						</Link>
+						<Link to="/cart">
+							<CartIcon className="nav-icon-dimensions mr-8 c-pointer" />
+						</Link>
 					</div>
 				</div>
 				{/* Remove the styles in App.css after pushing the component library  */}

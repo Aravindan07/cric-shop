@@ -27,5 +27,5 @@ export const useAxios = (url) => {
 			isMounted = false;
 		};
 	}, [url]);
-	return [data, loading, error];
+	return [data, setData, loading, error];
 };

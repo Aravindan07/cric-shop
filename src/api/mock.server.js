@@ -42,6 +42,7 @@ export default function setupMockServer() {
 						"4.8",
 						"4.3",
 					]),
+					wishListed: false,
 				});
 			});
 		},
