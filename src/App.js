@@ -4,8 +4,9 @@ import "./App.css";
 import Cart from "./Cart";
 import Navbar from "./components/Navbar";
 import { useWishList } from "./context/wishlistContext";
-import Products from "./Products";
-import Wishlist from "./Wishlist";
+import Products from "./pages/Products";
+import Wishlist from "./pages/Wishlist";
+import ProductDescription from "./pages/ProductDescription/index";
 
 function App() {
 	const { loadProducts } = useWishList();
@@ -21,6 +22,7 @@ function App() {
 					<Route path="/" exact component={Products} />
 					<Route path="/cart" component={Cart} />
 					<Route path="/wishlist" component={Wishlist} />
+					<Route path="/products/:id" component={ProductDescription} />
 				</Switch>
 			</div>
 		</div>

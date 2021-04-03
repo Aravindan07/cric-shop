@@ -4,8 +4,12 @@ import { ReactComponent as MenuIcon } from "../../icons/menu-icon.svg";
 import { ReactComponent as CartIcon } from "../../icons/cart-icon.svg";
 import { ReactComponent as HeartIcon } from "../../icons/heart-icon.svg";
 import SearchIcon from "../../icons/search.svg";
+import { useWishList } from "../../context/wishlistContext";
+import "./styles.css";
 
 function Navbar() {
+	const { state } = useWishList();
+	console.log(state.wishList.length);
 	return (
 		<div>
 			{/* Change the className to navbar--with-search after pushing the component library  */}
@@ -19,6 +23,9 @@ function Navbar() {
 						</Link>
 					</div>
 					<div className="navigation flex-row-space-between">
+						{state.wishList.length > 0 && (
+							<div className="notification-div">{state.wishList.length}</div>
+						)}
 						<Link to="/wishlist">
 							<HeartIcon className="nav-icon-dimensions mr-16 c-pointer" />
 						</Link>

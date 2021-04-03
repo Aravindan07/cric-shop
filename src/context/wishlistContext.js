@@ -1,15 +1,9 @@
 import { createContext, useContext, useReducer } from "react";
 import { wishListReducer } from "../reducers/wishlistReducer";
-import { LOAD__PRODUCTS } from "../constants";
+import { LOAD__PRODUCTS, initialState } from "../constants";
 import axios from "axios";
 
 const WishListContext = createContext();
-
-export const initialState = {
-	products: [],
-	wishList: [],
-	cartList: [],
-};
 
 export default function WishListProvider({ children }) {
 	const [state, dispatch] = useReducer(wishListReducer, initialState);
