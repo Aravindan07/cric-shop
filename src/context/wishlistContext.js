@@ -28,8 +28,37 @@ export default function WishListProvider({ children }) {
 		}
 	};
 
+	const addItemToCartList = async (item, type) => {
+		console.log("inside context function", item);
+		try {
+			const { data } = await axios.post("/api/cartlists", { cartlist: item });
+			dispatch({ type: type, payload: data });
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const removeItemFromCartList = async (item, type) => {
+		console.log("inside context function", item);
+		try {
+			const { data } = await axios.delete("/api/cartlists", { cartlist: item });
+			dispatch({ type: type, payload: data });
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	return (
-		<WishListContext.Provider value={{ state, dispatch, loadProducts, addItemToWishList }}>
+		<WishListContext.Provider
+			value={{
+				state,
+				dispatch,
+				loadProducts,
+				addItemToWishList,
+				addItemToCartList,
+				removeItemFromCartList,
+			}}
+		>
 			{children}
 		</WishListContext.Provider>
 	);

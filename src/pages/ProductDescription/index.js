@@ -1,19 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { useWishList } from "../../context/wishlistContext";
 import { ReactComponent as WishListIcon } from "../../icons/card-wish-icon.svg";
-import {
-	ADD__OR__REMOVE__ITEM__FROM__WISHLIST,
-	ADD__OR__REMOVE__ITEM__FROM__CART,
-} from "../../constants";
+import { ADD__OR__REMOVE__ITEM__FROM__WISHLIST, ADD__ITEM__TO__CART } from "../../constants";
 import "./styles.css";
-import { useCart } from "../../context/cartContext";
 
-function ProductDescription({ location }) {
-	const { state } = useWishList();
-	const productIdToShow = location.pathname.split("/")[2];
-	const productToShow = state.products.find((el) => el.id === productIdToShow);
-	const { addItemToWishList } = useWishList();
-	const { addItemToCartList } = useCart();
+function ProductDescription() {
+	const { state, addItemToWishList, addItemToCartList } = useWishList();
+	const { productId } = useParams();
+
+	console.log(productId);
+	console.log("state", state);
+	const productToShow = state.products.find((el) => el.id === productId);
+	console.log("Product to Show", productToShow);
 	const setWishListed = (event) => {
 		event.stopPropagation();
 		addItemToWishList(
@@ -23,12 +22,14 @@ function ProductDescription({ location }) {
 	};
 
 	const addItemToCart = () => {
+		if (productToShow.cartListed) {
+			return null;
+		}
 		return addItemToCartList(
 			{ ...productToShow, cartListed: !productToShow.cartListed },
-			ADD__OR__REMOVE__ITEM__FROM__CART
+			ADD__ITEM__TO__CART
 		);
 	};
-	console.log("state in cart", state);
 	return (
 		<div>
 			<h3 className="text-center mb-16">{productToShow.name}</h3>
@@ -58,7 +59,7 @@ function ProductDescription({ location }) {
 				className="button button--primary text-center mt-16 mb-16"
 				onClick={() => addItemToCart()}
 			>
-				Add to Cart
+				{productToShow.cartListed ? "Go to Cart" : "Add to Cart"}
 			</button>
 		</div>
 	);

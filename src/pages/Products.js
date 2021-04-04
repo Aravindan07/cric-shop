@@ -4,6 +4,7 @@ import { useWishList } from "../context/wishlistContext";
 
 function Products() {
 	const { state } = useWishList();
+	console.log("State in products page", state);
 	return (
 		<>
 			<CarouselSlider />

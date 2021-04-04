@@ -1,10 +1,15 @@
-import { LOAD__PRODUCTS, ADD__OR__REMOVE__ITEM__FROM__WISHLIST } from "../constants";
+import {
+	LOAD__PRODUCTS,
+	ADD__OR__REMOVE__ITEM__FROM__WISHLIST,
+	ADD__ITEM__TO__CART,
+	REMOVE__ITEM__FROM__CART,
+} from "../constants";
 
 export function wishListReducer(state, action) {
 	console.log(state, action);
-	const checkItemExists = (id) => {
+	const checkItemExists = (id, list) => {
 		console.log(id);
-		return state.wishList.find((el) => el.id === id);
+		return list.find((el) => el.id === id);
 	};
 	switch (action.type) {
 		case LOAD__PRODUCTS:
@@ -16,7 +21,7 @@ export function wishListReducer(state, action) {
 		case ADD__OR__REMOVE__ITEM__FROM__WISHLIST:
 			console.log("wishlist", action.payload);
 
-			if (checkItemExists(action.payload.wishlist.id)) {
+			if (checkItemExists(action.payload.wishlist.id, state.wishList)) {
 				console.log("state.wishList", state.wishList);
 				return {
 					...state,
@@ -33,6 +38,25 @@ export function wishListReducer(state, action) {
 				wishList: state.wishList.concat(action.payload.wishlist),
 				products: state.products.map((item) =>
 					item.id === action.payload.wishlist.id ? { ...item, wishListed: true } : item
+				),
+			};
+
+		case ADD__ITEM__TO__CART:
+			console.log("cartList", action.payload);
+			return {
+				...state,
+				cartList: state.cartList.concat(action.payload.cartlist),
+				products: state.products.map((item) =>
+					item.id === action.payload.cartlist.id ? { ...item, cartListed: true } : item
+				),
+			};
+
+		case REMOVE__ITEM__FROM__CART:
+			return {
+				...state,
+				cartList: state.cartList.filter((el) => el.id !== action.payload.cartlist.id),
+				products: state.products.map((item) =>
+					item.id === action.payload.cartlist.id ? { ...item, cartListed: false } : item
 				),
 			};
 

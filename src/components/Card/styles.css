@@ -61,10 +61,14 @@
 	color: var(--complementary-color);
 }
 
-.color-green {
+.color-success {
 	color: var(--primary-color);
 }
 
-.color-gray {
+.color-error {
 	color: var(--gray-text-color);
+}
+
+.color-warning {
+	color: var(--badge-warning-color);
 }

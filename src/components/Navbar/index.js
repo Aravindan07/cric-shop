@@ -22,16 +22,23 @@ function Navbar() {
 							cric shop
 						</Link>
 					</div>
-					<div className="navigation flex-row-space-between">
-						{state.wishList.length > 0 && (
-							<div className="notification-div">{state.wishList.length}</div>
-						)}
-						<Link to="/wishlist">
-							<HeartIcon className="nav-icon-dimensions mr-16 c-pointer" />
-						</Link>
-						<Link to="/cart">
-							<CartIcon className="nav-icon-dimensions mr-8 c-pointer" />
-						</Link>
+					<div className="flex-row-space-between">
+						<div className="icons-div">
+							{state.wishList.length > 0 && (
+								<div className="notification-div">{state.wishList.length}</div>
+							)}
+							<Link to="/wishlist">
+								<HeartIcon className="nav-icon-dimensions mr-16 c-pointer" />
+							</Link>
+						</div>
+						<div className="icons-div">
+							{state.cartList.length > 0 && (
+								<div className="notification-div">{state.cartList.length}</div>
+							)}
+							<Link to="/cart">
+								<CartIcon className="nav-icon-dimensions mr-8 c-pointer" />
+							</Link>
+						</div>
 					</div>
 				</div>
 				{/* Remove the styles in App.css after pushing the component library  */}

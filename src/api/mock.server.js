@@ -31,7 +31,11 @@ export default function setupMockServer() {
 					image: faker.random.image(),
 					price: faker.commerce.price(),
 					fastDelivery: faker.datatype.boolean(),
-					inStock: faker.datatype.boolean(),
+					inStock: faker.random.arrayElement([
+						"Only few left",
+						"Out of Stock",
+						"In Stock",
+					]),
 					offer: faker.random.arrayElement(["Save 50%", "70% off", "40% off", "20% off"]),
 					wishListed: false,
 					cartListed: false,

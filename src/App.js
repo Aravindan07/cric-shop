@@ -11,8 +11,14 @@ import ProductDescription from "./pages/ProductDescription/index";
 function App() {
 	const { loadProducts } = useWishList();
 	useEffect(() => {
-		console.log("Inside app use effect!");
-		loadProducts();
+		let isMounted = true;
+		if (isMounted) {
+			console.log("Inside app use effect!");
+			loadProducts();
+		}
+		return () => {
+			isMounted = false;
+		};
 	}, []);
 	return (
 		<div className="flex-col">
@@ -22,7 +28,7 @@ function App() {
 					<Route path="/" exact component={Products} />
 					<Route path="/cart" component={Cart} />
 					<Route path="/wishlist" component={Wishlist} />
-					<Route path="/products/:id" component={ProductDescription} />
+					<Route path="/products/:productId" component={ProductDescription} />
 				</Switch>
 			</div>
 		</div>
