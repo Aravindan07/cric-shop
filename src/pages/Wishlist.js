@@ -14,7 +14,7 @@ function Wishlist() {
 					<span className="fw-600">{state.wishList && state.wishList.length}</span> items.{" "}
 				</p>
 			) : (
-				<p className="text-center">Your wishlist is empty</p>
+				<p className="text-center">Your wishlist is empty!</p>
 			)}
 			{state.wishList.map((item) => (
 				<Card key={item.id} item={item} />

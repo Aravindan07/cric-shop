@@ -24,7 +24,7 @@ export default function setupMockServer() {
 		},
 
 		seeds(server) {
-			[...Array(50)].forEach((_) => {
+			[...Array(20)].forEach((_) => {
 				server.create("product", {
 					id: faker.datatype.uuid(),
 					name: faker.commerce.productName(),
@@ -48,6 +48,7 @@ export default function setupMockServer() {
 						"4.8",
 						"4.3",
 					]),
+					quantity: 1,
 				});
 			});
 			[...Array(0)].forEach((_) => {
@@ -68,7 +69,7 @@ export default function setupMockServer() {
 						"4.8",
 						"4.3",
 					]),
-					// wishListed: true,
+					quantity: 1,
 				});
 			});
 			[...Array(0)].forEach((_) => {
@@ -89,7 +90,7 @@ export default function setupMockServer() {
 						"4.8",
 						"4.3",
 					]),
-					// wishListed: true,
+					quantity: 1,
 				});
 			});
 		},

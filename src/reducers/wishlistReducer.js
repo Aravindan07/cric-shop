@@ -3,6 +3,8 @@ import {
 	ADD__OR__REMOVE__ITEM__FROM__WISHLIST,
 	ADD__ITEM__TO__CART,
 	REMOVE__ITEM__FROM__CART,
+	INCREMENT__QUANTITY,
+	DECREMENT__QUANTITY,
 } from "../constants";
 
 export function wishListReducer(state, action) {
@@ -60,7 +62,27 @@ export function wishListReducer(state, action) {
 				),
 			};
 
+		case INCREMENT__QUANTITY:
+			return {
+				...state,
+				products: state.products.map((item) =>
+					item.id === action.payload.cartlist.id
+						? { ...item, quantity: item.quantity + 1 }
+						: item
+				),
+			};
+
+		case DECREMENT__QUANTITY:
+			return {
+				...state,
+				products: state.products.map((item) =>
+					item.id === action.payload.cartlist.id
+						? { ...item, quantity: item.quantity - 1 }
+						: item
+				),
+			};
+
 		default:
-			break;
+			return state;
 	}
 }

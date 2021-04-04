@@ -41,7 +41,17 @@ export default function WishListProvider({ children }) {
 	const removeItemFromCartList = async (item, type) => {
 		console.log("inside context function", item);
 		try {
-			const { data } = await axios.delete("/api/cartlists", { cartlist: item });
+			const { data } = await axios.put(`/api/cartlists/${item.id}`, { cartlist: item });
+			dispatch({ type: type, payload: data });
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const incOrDecQuantity = async (item, type) => {
+		console.log("inside context function", item);
+		try {
+			const { data } = await axios.put(`/api/cartlists/${item.id}`, { cartlist: item });
 			dispatch({ type: type, payload: data });
 		} catch (error) {
 			console.error(error);
@@ -57,6 +67,7 @@ export default function WishListProvider({ children }) {
 				addItemToWishList,
 				addItemToCartList,
 				removeItemFromCartList,
+				incOrDecQuantity,
 			}}
 		>
 			{children}

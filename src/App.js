@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
-import Cart from "./Cart";
 import Navbar from "./components/Navbar";
 import { useWishList } from "./context/wishlistContext";
 import Products from "./pages/Products";
 import Wishlist from "./pages/Wishlist";
 import ProductDescription from "./pages/ProductDescription/index";
+import Cart from "./pages/Cart";
 
 function App() {
 	const { loadProducts } = useWishList();
