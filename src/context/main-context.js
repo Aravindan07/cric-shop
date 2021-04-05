@@ -2,6 +2,7 @@ import { createContext, useContext, useReducer } from "react";
 import { mainReducer } from "../reducers/mainReducer";
 import { LOAD__PRODUCTS, initialState } from "../constants";
 import axios from "axios";
+import { getSortedData } from "../utils/Filter";
 
 const MainContext = createContext();
 

@@ -24,18 +24,14 @@ export default function setupMockServer() {
 		},
 
 		seeds(server) {
-			[...Array(20)].forEach((_) => {
+			[...Array(33)].forEach((_) => {
 				server.create("product", {
 					id: faker.datatype.uuid(),
 					name: faker.commerce.productName(),
 					image: faker.random.image(),
 					price: faker.commerce.price(),
 					fastDelivery: faker.datatype.boolean(),
-					inStock: faker.random.arrayElement([
-						"Only few left",
-						"Out of Stock",
-						"In Stock",
-					]),
+					inStock: faker.datatype.boolean(),
 					offer: faker.random.arrayElement(["Save 50%", "70% off", "40% off", "20% off"]),
 					wishListed: false,
 					cartListed: false,

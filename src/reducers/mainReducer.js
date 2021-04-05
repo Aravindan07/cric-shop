@@ -5,6 +5,11 @@ import {
 	REMOVE__ITEM__FROM__CART,
 	INCREMENT__QUANTITY,
 	DECREMENT__QUANTITY,
+	PRICE__HIGH__TO__LOW,
+	PRICE__LOW__TO__HIGH,
+	INCLUDE__FAST__DELIVERY,
+	INCLUDE__OUT__OF__STOCK,
+	CLEAR__FILTERS,
 } from "../constants";
 
 export function mainReducer(state, action) {
@@ -100,6 +105,37 @@ export function mainReducer(state, action) {
 				),
 			};
 
+		case INCLUDE__OUT__OF__STOCK:
+			return {
+				...state,
+				includeOutOfStock: !state.includeOutOfStock,
+			};
+
+		case INCLUDE__FAST__DELIVERY:
+			return {
+				...state,
+				showFastDeliveryOnly: !state.showFastDeliveryOnly,
+			};
+
+		case PRICE__HIGH__TO__LOW:
+			return {
+				...state,
+				sortBy: action.type,
+			};
+
+		case PRICE__LOW__TO__HIGH:
+			return {
+				...state,
+				sortBy: action.type,
+			};
+
+		case CLEAR__FILTERS:
+			return {
+				...state,
+				includeOutOfStock: true,
+				showFastDeliveryOnly: false,
+				sortBy: null,
+			};
 		default:
 			return state;
 	}

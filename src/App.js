@@ -10,15 +10,10 @@ import Cart from "./pages/Cart";
 
 function App() {
 	const { loadProducts } = useMainContext();
+	console.log("Checking App Running");
 	useEffect(() => {
-		let isMounted = true;
-		if (isMounted) {
-			console.log("Inside app use effect!");
-			loadProducts();
-		}
-		return () => {
-			isMounted = false;
-		};
+		console.log("Inside app use effect!");
+		loadProducts();
 	}, []);
 	return (
 		<div className="flex-col">
