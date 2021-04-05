@@ -1,20 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
 	ADD__OR__REMOVE__ITEM__FROM__WISHLIST,
 	DECREMENT__QUANTITY,
 	INCREMENT__QUANTITY,
 } from "../../constants";
-import { useWishList } from "../../context/wishlistContext";
+import { useMainContext } from "../../context/main-context";
 import { ReactComponent as WishListIcon } from "../../icons/card-wish-icon.svg";
 import "./styles.css";
 
 function ProductDescriptionCard({ productToShow }) {
-	const { addItemToWishList, incOrDecQuantity, loadProducts } = useWishList();
-	useEffect(() => {
-		loadProducts();
-	}, []);
-
-	console.log("productToShow", productToShow);
+	const { addItemToWishList, incOrDecQuantity } = useMainContext();
+	console.log("Item received by product description card", productToShow);
+	console.log("productToShow in Cart", productToShow);
 
 	const setWishListed = (event) => {
 		event.stopPropagation();

@@ -1,4 +1,4 @@
-import { useWishList } from "../../context/wishlistContext";
+import { useMainContext } from "../../context/main-context";
 import { ReactComponent as WishListIcon } from "../../icons/card-wish-icon.svg";
 import { ADD__OR__REMOVE__ITEM__FROM__WISHLIST } from "../../constants";
 import "./styles.css";
@@ -7,7 +7,7 @@ import { useHistory } from "react-router";
 function Card({ item }) {
 	const history = useHistory();
 
-	const { addItemToWishList } = useWishList();
+	const { addItemToWishList } = useMainContext();
 	const setWishListed = (event) => {
 		event.stopPropagation();
 		addItemToWishList(

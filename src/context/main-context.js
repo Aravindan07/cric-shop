@@ -1,12 +1,12 @@
 import { createContext, useContext, useReducer } from "react";
-import { wishListReducer } from "../reducers/wishlistReducer";
+import { mainReducer } from "../reducers/mainReducer";
 import { LOAD__PRODUCTS, initialState } from "../constants";
 import axios from "axios";
 
-const WishListContext = createContext();
+const MainContext = createContext();
 
-export default function WishListProvider({ children }) {
-	const [state, dispatch] = useReducer(wishListReducer, initialState);
+export default function MainContextProvider({ children }) {
+	const [state, dispatch] = useReducer(mainReducer, initialState);
 
 	const loadProducts = async () => {
 		try {
@@ -59,7 +59,7 @@ export default function WishListProvider({ children }) {
 	};
 
 	return (
-		<WishListContext.Provider
+		<MainContext.Provider
 			value={{
 				state,
 				dispatch,
@@ -71,10 +71,10 @@ export default function WishListProvider({ children }) {
 			}}
 		>
 			{children}
-		</WishListContext.Provider>
+		</MainContext.Provider>
 	);
 }
 
-export const useWishList = () => {
-	return useContext(WishListContext);
+export const useMainContext = () => {
+	return useContext(MainContext);
 };

@@ -1,9 +1,9 @@
 import CarouselSlider from "../components/Carousel-slider";
 import Card from "../components/Card";
-import { useWishList } from "../context/wishlistContext";
+import { useMainContext } from "../context/main-context";
 
 function Products() {
-	const { state } = useWishList();
+	const { state } = useMainContext();
 	console.log("State in products page", state);
 	return (
 		<>

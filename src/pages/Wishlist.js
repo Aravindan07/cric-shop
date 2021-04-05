@@ -1,9 +1,9 @@
 import React from "react";
 import Card from "../components/Card";
-import { useWishList } from "../context/wishlistContext";
+import { useMainContext } from "../context/main-context";
 
 function Wishlist() {
-	const { state } = useWishList();
+	const { state } = useMainContext();
 	console.log(state.wishList.length);
 	return (
 		<div className="padding-t8 padding-b8 padding-l8 padding-r8">

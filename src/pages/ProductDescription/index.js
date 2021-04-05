@@ -1,12 +1,12 @@
 import { useHistory, useParams } from "react-router-dom";
-import { useWishList } from "../../context/wishlistContext";
+import { useMainContext } from "../../context/main-context";
 import { ADD__ITEM__TO__CART } from "../../constants";
 import ProductDescriptionCard from "../../components/ProductDescriptionCard";
 import "./styles.css";
 
 function ProductDescription() {
 	const history = useHistory();
-	const { state, addItemToCartList } = useWishList();
+	const { state, addItemToCartList } = useMainContext();
 	const { productId } = useParams();
 
 	console.log(productId);

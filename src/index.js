@@ -3,20 +3,17 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import setupMockServer from "./api/mock.server.js";
-import WishListProvider from "./context/wishlistContext";
-import CartListProvider from "./context/cartContext.js";
+import setupMockServer from "./server/mock.server.js";
+import MainContextProvider from "./context/main-context";
 
 setupMockServer();
 
 ReactDOM.render(
 	<React.StrictMode>
 		<BrowserRouter>
-			<WishListProvider>
-				<CartListProvider>
-					<App />
-				</CartListProvider>
-			</WishListProvider>
+			<MainContextProvider>
+				<App />
+			</MainContextProvider>
 		</BrowserRouter>
 	</React.StrictMode>,
 	document.getElementById("root")

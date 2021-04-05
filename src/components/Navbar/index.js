@@ -4,11 +4,11 @@ import { ReactComponent as MenuIcon } from "../../icons/menu-icon.svg";
 import { ReactComponent as CartIcon } from "../../icons/cart-icon.svg";
 import { ReactComponent as HeartIcon } from "../../icons/heart-icon.svg";
 import SearchIcon from "../../icons/search.svg";
-import { useWishList } from "../../context/wishlistContext";
+import { useMainContext } from "../../context/main-context";
 import "./styles.css";
 
 function Navbar() {
-	const { state } = useWishList();
+	const { state } = useMainContext();
 	console.log(state.wishList.length);
 	return (
 		<div>

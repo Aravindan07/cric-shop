@@ -7,7 +7,7 @@ import {
 	DECREMENT__QUANTITY,
 } from "../constants";
 
-export function wishListReducer(state, action) {
+export function mainReducer(state, action) {
 	console.log(state, action);
 	const checkItemExists = (id, list) => {
 		console.log(id);
@@ -28,6 +28,11 @@ export function wishListReducer(state, action) {
 				return {
 					...state,
 					wishList: state.wishList.filter((el) => el.id !== action.payload.wishlist.id),
+					cartList: state.cartList.map((item) =>
+						item.id === action.payload.wishlist.id
+							? { ...item, wishListed: false }
+							: item
+					),
 					products: state.products.map((item) =>
 						item.id === action.payload.wishlist.id
 							? { ...item, wishListed: false }
@@ -38,6 +43,9 @@ export function wishListReducer(state, action) {
 			return {
 				...state,
 				wishList: state.wishList.concat(action.payload.wishlist),
+				cartList: state.cartList.map((item) =>
+					item.id === action.payload.wishlist.id ? { ...item, wishListed: true } : item
+				),
 				products: state.products.map((item) =>
 					item.id === action.payload.wishlist.id ? { ...item, wishListed: true } : item
 				),
@@ -65,6 +73,11 @@ export function wishListReducer(state, action) {
 		case INCREMENT__QUANTITY:
 			return {
 				...state,
+				cartList: state.cartList.map((item) =>
+					item.id === action.payload.cartlist.id
+						? { ...item, quantity: item.quantity + 1 }
+						: item
+				),
 				products: state.products.map((item) =>
 					item.id === action.payload.cartlist.id
 						? { ...item, quantity: item.quantity + 1 }
@@ -75,6 +88,11 @@ export function wishListReducer(state, action) {
 		case DECREMENT__QUANTITY:
 			return {
 				...state,
+				cartList: state.cartList.map((item) =>
+					item.id === action.payload.cartlist.id
+						? { ...item, quantity: item.quantity - 1 }
+						: item
+				),
 				products: state.products.map((item) =>
 					item.id === action.payload.cartlist.id
 						? { ...item, quantity: item.quantity - 1 }
