@@ -26,7 +26,7 @@ function Card({ item }) {
 
 	return (
 		<>
-			<div className={`card mt-16 mb-16 c-pointer`} onClick={(e) => gotoProduct(e)}>
+			<div className="card mt-16 mb-16 c-pointer" onClick={(e) => gotoProduct(e)}>
 				{!item.inStock && (
 					<div className="out-of-stock-card">
 						<div className="badge badge--error ls-1">Out of stock</div>
@@ -49,7 +49,11 @@ function Card({ item }) {
 						<span className="highlighted__price ls-1">Rs. {item.price}</span>
 						<span className="price ml-16 ls-1 color-red fw-600">{item.offer}</span>
 					</div>
-					{item.inStock && <p className="color-success fw-600">In Stock</p>}
+					{item.inStock ? (
+						<p className="color-success fw-600">In Stock</p>
+					) : (
+						<p className="color-error fw-600">Out of Stock</p>
+					)}
 					<div className="rating">
 						{item.rating}/5
 						<img src="https://polish-ui.netlify.app/icons/star.svg" alt="Ratings" />

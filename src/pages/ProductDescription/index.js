@@ -8,11 +8,7 @@ function ProductDescription() {
 	const history = useHistory();
 	const { state, addItemToCartList } = useMainContext();
 	const { productId } = useParams();
-
-	console.log(productId);
-	console.log("state", state);
 	const productToShow = state.products.find((el) => el.id === productId);
-	console.log("Product to Show", productToShow);
 
 	const addItemToCart = () => {
 		if (productToShow.cartListed) {

@@ -8,8 +8,6 @@ import MainContextProvider from "./context/main-context";
 
 setupMockServer();
 
-console.log("Checking Index is Running");
-
 ReactDOM.render(
 	<React.StrictMode>
 		<BrowserRouter>

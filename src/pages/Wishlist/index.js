@@ -1,6 +1,6 @@
 import React from "react";
-import Card from "../components/Card";
-import { useMainContext } from "../context/main-context";
+import Card from "../../components/Card";
+import { useMainContext } from "../../context/main-context";
 
 function Wishlist() {
 	const { state } = useMainContext();

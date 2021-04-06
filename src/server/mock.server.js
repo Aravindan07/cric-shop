@@ -24,7 +24,7 @@ export default function setupMockServer() {
 		},
 
 		seeds(server) {
-			[...Array(33)].forEach((_) => {
+			[...Array(36)].forEach((_) => {
 				server.create("product", {
 					id: faker.datatype.uuid(),
 					name: faker.commerce.productName(),
