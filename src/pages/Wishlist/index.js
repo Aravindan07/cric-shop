@@ -16,9 +16,11 @@ function Wishlist() {
 			) : (
 				<p className="text-center">Your wishlist is empty!</p>
 			)}
-			{state.wishList.map((item) => (
-				<Card key={item.id} item={item} />
-			))}
+			<div className="flex-row-center">
+				{state.wishList.map((item) => (
+					<Card key={item.id} item={item} />
+				))}
+			</div>
 		</div>
 	);
 }

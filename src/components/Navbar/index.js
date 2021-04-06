@@ -16,7 +16,7 @@ function Navbar() {
 			<nav className="navbar--with-search">
 				<div className="flex-row-space-between">
 					<div className="nav-logo-container">
-						<MenuIcon className="menu-icon-dimensions mb-2 mr-8 c-pointer" />
+						{/* <MenuIcon className="menu-icon-dimensions mb-2 mr-8 c-pointer" /> */}
 						<Logo className="mr-8" />
 						<Link className="navbar__title ls-1 mb-5" to="/">
 							cric shop
@@ -32,14 +32,14 @@ function Navbar() {
 					</div>
 
 					<div className="flex-row-space-between">
-						<div className="profile__image ml-32 mr-32 c-pointer">
+						<div className="profile__image c-pointer">
 							<img
 								className="avatar--medium rounded-image"
 								src="https://polish-ui.netlify.app/icons/fallback.svg"
 								alt="Avatar"
 							/>
 						</div>
-						<div className="icons-div mr-32">
+						<div className="icons-div">
 							{state.wishList.length > 0 && (
 								<div className="notification-div">{state.wishList.length}</div>
 							)}
@@ -47,7 +47,7 @@ function Navbar() {
 								<HeartIcon className="nav-icon-dimensions c-pointer" />
 							</Link>
 						</div>
-						<div className="icons-div mr-32">
+						<div className="icons-div">
 							{state.cartList.length > 0 && (
 								<div className="notification-div">{state.cartList.length}</div>
 							)}
@@ -58,14 +58,14 @@ function Navbar() {
 					</div>
 				</div>
 				{/* Remove the styles in App.css after pushing the component library  */}
-				{/* <div className="search__wrap">
+				<div className="search__wrap--mobile mt-8">
 					<img className="search-icon" src={SearchIcon} alt="icon" />
 					<input
 						className="search-input padding-l32 padding-r8"
 						type="text"
 						placeholder="Search for products..."
 					/>
-				</div> */}
+				</div>
 			</nav>
 		</div>
 	);

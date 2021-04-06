@@ -17,7 +17,7 @@ export default function setupMockServer() {
 
 		routes() {
 			this.namespace = "api";
-			this.timing = 1000;
+			this.timing = 100;
 			this.resource("products");
 			this.resource("wishlists");
 			this.resource("cartlists");
@@ -28,6 +28,8 @@ export default function setupMockServer() {
 				server.create("product", {
 					id: faker.datatype.uuid(),
 					name: faker.commerce.productName(),
+					productDescription: faker.commerce.productDescription(),
+					productAdjective: faker.commerce.productAdjective(),
 					image: faker.random.image(),
 					price: faker.commerce.price(),
 					fastDelivery: faker.datatype.boolean(),

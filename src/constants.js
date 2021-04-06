@@ -2,7 +2,7 @@ export const initialState = {
 	products: [],
 	wishList: [],
 	cartList: [],
-	includeOutOfStock: true,
+	includeOutOfStock: false,
 	showFastDeliveryOnly: false,
 	sortBy: "",
 };
