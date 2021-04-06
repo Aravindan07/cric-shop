@@ -11,7 +11,7 @@ function Products() {
 
 	const sortedData = getSortedData(products, sortBy);
 	const filteredData = getFilteredData(includeOutOfStock, showFastDeliveryOnly, sortedData);
-	console.log(filteredData);
+
 	return (
 		<>
 			<FilterComponent />

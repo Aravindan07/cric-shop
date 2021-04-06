@@ -13,23 +13,17 @@ import {
 } from "../constants";
 
 export function mainReducer(state, action) {
-	console.log(state, action);
 	const checkItemExists = (id, list) => {
-		console.log(id);
 		return list.find((el) => el.id === id);
 	};
 	switch (action.type) {
 		case LOAD__PRODUCTS:
-			console.log("Inside Load Products");
 			return {
 				...state,
 				products: action.payload,
 			};
 		case ADD__OR__REMOVE__ITEM__FROM__WISHLIST:
-			console.log("wishlist", action.payload);
-
 			if (checkItemExists(action.payload.wishlist.id, state.wishList)) {
-				console.log("state.wishList", state.wishList);
 				return {
 					...state,
 					wishList: state.wishList.filter((el) => el.id !== action.payload.wishlist.id),
@@ -57,7 +51,6 @@ export function mainReducer(state, action) {
 			};
 
 		case ADD__ITEM__TO__CART:
-			console.log("cartList", action.payload);
 			return {
 				...state,
 				cartList: state.cartList.concat(action.payload.cartlist),

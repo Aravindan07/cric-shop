@@ -15,7 +15,6 @@ export default function Cart() {
 			)}
 
 			{state.cartList.map((item) => {
-				console.log("Item before sent to product description card", item);
 				return (
 					<div key={item.id} className="mb-16">
 						<ProductDescriptionCard key={item.id} productToShow={item} />

@@ -4,7 +4,7 @@ import { useMainContext } from "../../context/main-context";
 
 function Wishlist() {
 	const { state } = useMainContext();
-	console.log(state.wishList.length);
+
 	return (
 		<div className="padding-t8 padding-b8 padding-l8 padding-r8">
 			{state.wishList.length > 0 && <h2 className="text-center">My Wishlist</h2>}

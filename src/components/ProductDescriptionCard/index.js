@@ -14,15 +14,13 @@ import "./styles.css";
 function ProductDescriptionCard({ productToShow }) {
 	const history = useHistory();
 	const { productId } = useParams();
-	console.log(productId);
+
 	const {
 		addItemToWishList,
 		incOrDecQuantity,
 		addItemToCartList,
 		removeItemFromCartList,
 	} = useMainContext();
-	console.log("Item received by product description card", productToShow);
-	console.log("productToShow in Cart", productToShow);
 
 	const setWishListed = (event) => {
 		event.stopPropagation();

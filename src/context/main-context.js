@@ -11,7 +11,6 @@ export default function MainContextProvider({ children }) {
 	const loadProducts = async () => {
 		try {
 			const { data } = await axios.get("/api/products");
-			console.log("In load products", data);
 			return dispatch({ type: LOAD__PRODUCTS, payload: data.products });
 		} catch (error) {
 			console.error(error);
@@ -19,7 +18,6 @@ export default function MainContextProvider({ children }) {
 	};
 
 	const addItemToWishList = async (item, type) => {
-		console.log("inside context function", item);
 		try {
 			const { data } = await axios.post("/api/wishlists", { wishlist: item });
 			dispatch({ type: type, payload: data });
@@ -29,7 +27,6 @@ export default function MainContextProvider({ children }) {
 	};
 
 	const addItemToCartList = async (item, type) => {
-		console.log("inside context function", item);
 		try {
 			const { data } = await axios.post("/api/cartlists", { cartlist: item });
 			dispatch({ type: type, payload: data });
@@ -39,7 +36,6 @@ export default function MainContextProvider({ children }) {
 	};
 
 	const removeItemFromCartList = async (item, type) => {
-		console.log("inside context function", item);
 		try {
 			const { data } = await axios.put(`/api/cartlists/${item.id}`, { cartlist: item });
 			dispatch({ type: type, payload: data });
@@ -49,7 +45,6 @@ export default function MainContextProvider({ children }) {
 	};
 
 	const incOrDecQuantity = async (item, type) => {
-		console.log("inside context function", item);
 		try {
 			const { data } = await axios.put(`/api/cartlists/${item.id}`, { cartlist: item });
 			dispatch({ type: type, payload: data });

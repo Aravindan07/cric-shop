@@ -10,7 +10,6 @@ import "./styles.css";
 
 function Navbar() {
 	const { state } = useMainContext();
-	console.log(state.wishList.length);
 	return (
 		<div>
 			<nav className="navbar--with-search">
