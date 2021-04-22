@@ -10,13 +10,15 @@ import {
 	INCLUDE__FAST__DELIVERY,
 	INCLUDE__OUT__OF__STOCK,
 	CLEAR__FILTERS,
+	LOAD__WISHLIST,
+	LOAD__CARTLIST,
 } from "../constants";
 
 export function mainReducer(state, action) {
 	console.log("action", action);
 	console.log("state", state);
 	const checkItemExists = (id, list) => {
-		return list.find((el) => el.id === id);
+		return list.find((el) => el._id === id);
 	};
 	switch (action.type) {
 		case LOAD__PRODUCTS:
@@ -24,49 +26,55 @@ export function mainReducer(state, action) {
 				...state,
 				products: action.payload,
 			};
+		case LOAD__WISHLIST:
+			return {
+				...state,
+				wishList: action.payload,
+			};
+		case LOAD__CARTLIST:
+			return {
+				...state,
+				cartList: action.payload,
+			};
 		case ADD__OR__REMOVE__ITEM__FROM__WISHLIST:
-			if (checkItemExists(action.payload.wishlist.id, state.wishList)) {
+			if (checkItemExists(action.payload._id, state.wishList)) {
 				return {
 					...state,
-					wishList: state.wishList.filter((el) => el.id !== action.payload.wishlist.id),
+					wishList: state.wishList.filter((el) => el._id !== action.payload._id),
 					cartList: state.cartList.map((item) =>
-						item.id === action.payload.wishlist.id
-							? { ...item, wishListed: false }
-							: item
+						item._id === action.payload._id ? { ...item, wishListed: false } : item
 					),
 					products: state.products.map((item) =>
-						item.id === action.payload.wishlist.id
-							? { ...item, wishListed: false }
-							: item
+						item._id === action.payload._id ? { ...item, wishListed: false } : item
 					),
 				};
 			}
 			return {
 				...state,
-				wishList: state.wishList.concat(action.payload.wishlist),
+				wishList: state.wishList.concat(action.payload),
 				cartList: state.cartList.map((item) =>
-					item.id === action.payload.wishlist.id ? { ...item, wishListed: true } : item
+					item._id === action.payload._id ? { ...item, wishListed: true } : item
 				),
 				products: state.products.map((item) =>
-					item.id === action.payload.wishlist.id ? { ...item, wishListed: true } : item
+					item._id === action.payload._id ? { ...item, wishListed: true } : item
 				),
 			};
 
 		case ADD__ITEM__TO__CART:
 			return {
 				...state,
-				cartList: state.cartList.concat(action.payload.cartlist),
+				cartList: state.cartList.concat(action.payload),
 				products: state.products.map((item) =>
-					item.id === action.payload.cartlist.id ? { ...item, cartListed: true } : item
+					item._id === action.payload._id ? { ...item, cartListed: true } : item
 				),
 			};
 
 		case REMOVE__ITEM__FROM__CART:
 			return {
 				...state,
-				cartList: state.cartList.filter((el) => el.id !== action.payload.cartlist.id),
+				cartList: state.cartList.filter((el) => el._id !== action.payload._id),
 				products: state.products.map((item) =>
-					item.id === action.payload.cartlist.id ? { ...item, cartListed: false } : item
+					item._id === action.payload._id ? { ...item, cartListed: false } : item
 				),
 			};
 

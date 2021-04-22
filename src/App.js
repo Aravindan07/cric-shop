@@ -12,9 +12,15 @@ function App() {
 	const { loadProducts, loadWishList, loadCartList } = useMainContext();
 
 	useEffect(() => {
-		loadProducts();
-		loadWishList();
-		loadCartList();
+		let isMounted = true;
+		if (isMounted) {
+			loadProducts();
+			loadWishList();
+			loadCartList();
+		}
+		return () => {
+			isMounted = false;
+		};
 	}, []);
 
 	return (

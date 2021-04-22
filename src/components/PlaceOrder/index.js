@@ -6,9 +6,9 @@ export default function PlaceOrder() {
 	} = useMainContext();
 
 	const totalPrice = (accumulator, currentValue) =>
-		accumulator + Number(currentValue.quantity) * Number(currentValue.price);
+		accumulator + currentValue.quantityAddedToCart * currentValue.price;
 	const totalQuantity = (accumulator, currentValue) =>
-		accumulator + Number(currentValue.quantity);
+		accumulator + Number(currentValue.quantityAddedToCart);
 
 	return (
 		<div className="text-center mb-32 cart-details-card padding-l16 padding-r16 padding-t16 padding-b16">

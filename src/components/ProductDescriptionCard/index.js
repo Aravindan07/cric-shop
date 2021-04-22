@@ -47,20 +47,17 @@ function ProductDescriptionCard({ productToShow }) {
 		if (productToShow.cartListed) {
 			return history.push("/cart");
 		}
-		return addItemToCartList(
-			{ ...productToShow, cartListed: !productToShow.cartListed },
-			ADD__ITEM__TO__CART
-		);
+		return addItemToCartList(productToShow._id, ADD__ITEM__TO__CART);
 	};
 
 	const removeFromCartHandler = (item) => {
-		return removeItemFromCartList({ ...item, cartListed: false }, REMOVE__ITEM__FROM__CART);
+		return removeItemFromCartList(item._id, REMOVE__ITEM__FROM__CART);
 	};
 
 	return (
 		<>
 			{productToShow && (
-				<div div className="product-container">
+				<div className="product-container">
 					<div className="image-wishlist-icon-container">
 						<WishListIcon
 							fill={
@@ -102,7 +99,8 @@ function ProductDescriptionCard({ productToShow }) {
 						</p>
 						<p>
 							<strong>Delivery: </strong>
-							{productToShow.delivery ? (
+							{productToShow.delivery === "Fast" ||
+							productToShow.delivery === "fast" ? (
 								<span className="color-success ml-5">
 									Fast delivery is available.
 								</span>
@@ -127,7 +125,9 @@ function ProductDescriptionCard({ productToShow }) {
 									>
 										-
 									</button>
-									<p className="text-center mb-5">{productToShow.quantity}</p>
+									<p className="text-center mb-5">
+										{productToShow.quantityAddedToCart}
+									</p>
 									<button
 										className="button button--primary ml-16"
 										onClick={() =>

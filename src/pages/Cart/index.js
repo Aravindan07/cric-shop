@@ -16,7 +16,7 @@ export default function Cart() {
 
 			{state.cartList.map((item) => {
 				return (
-					<div key={item.id} className="mb-16">
+					<div key={item._id} className="mb-16">
 						<ProductDescriptionCard key={item.id} productToShow={item} />
 						<hr />
 					</div>
