@@ -2,10 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import setupMockServer from "./server/mock.server.js";
 import MainContextProvider from "./context/main-context";
-
-setupMockServer();
 
 ReactDOM.render(
 	<React.StrictMode>

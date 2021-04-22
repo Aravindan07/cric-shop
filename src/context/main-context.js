@@ -1,7 +1,9 @@
 import { createContext, useContext, useReducer } from "react";
 import { mainReducer } from "../reducers/mainReducer";
-import { LOAD__PRODUCTS, initialState } from "../constants";
+import { LOAD__PRODUCTS, initialState, LOAD__WISHLIST, LOAD__CARTLIST } from "../constants";
 import axios from "axios";
+
+const { REACT_APP_BACKEND_URL } = process.env;
 
 const MainContext = createContext();
 
@@ -10,8 +12,29 @@ export default function MainContextProvider({ children }) {
 
 	const loadProducts = async () => {
 		try {
-			const { data } = await axios.get("/api/products");
+			const { data } = await axios.get(`${REACT_APP_BACKEND_URL}/products`);
+			console.log("main data", data.products);
 			return dispatch({ type: LOAD__PRODUCTS, payload: data.products });
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const loadWishList = async () => {
+		try {
+			const { data } = await axios.get(`${REACT_APP_BACKEND_URL}/wishlist`);
+			console.log("main data", data.products);
+			return dispatch({ type: LOAD__WISHLIST, payload: data.products });
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const loadCartList = async () => {
+		try {
+			const { data } = await axios.get(`${REACT_APP_BACKEND_URL}/cartlist`);
+			console.log("main data", data.products);
+			return dispatch({ type: LOAD__CARTLIST, payload: data.products });
 		} catch (error) {
 			console.error(error);
 		}
@@ -19,7 +42,9 @@ export default function MainContextProvider({ children }) {
 
 	const addItemToWishList = async (item, type) => {
 		try {
-			const { data } = await axios.post("/api/wishlists", { wishlist: item });
+			const { data } = await axios.post(`${REACT_APP_BACKEND_URL}/wishlist/${item._id}`, {
+				productId: item._id,
+			});
 			dispatch({ type: type, payload: data });
 		} catch (error) {
 			console.error(error);
@@ -59,6 +84,8 @@ export default function MainContextProvider({ children }) {
 				state,
 				dispatch,
 				loadProducts,
+				loadWishList,
+				loadCartList,
 				addItemToWishList,
 				addItemToCartList,
 				removeItemFromCartList,

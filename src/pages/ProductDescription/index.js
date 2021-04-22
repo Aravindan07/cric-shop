@@ -6,7 +6,7 @@ import "./styles.css";
 function ProductDescription() {
 	const { state } = useMainContext();
 	const { productId } = useParams();
-	const productToShow = state.products.find((el) => el.id === productId);
+	const productToShow = state.products.find((el) => el._id === productId);
 
 	return (
 		<div>

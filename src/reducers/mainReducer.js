@@ -13,6 +13,8 @@ import {
 } from "../constants";
 
 export function mainReducer(state, action) {
+	console.log("action", action);
+	console.log("state", state);
 	const checkItemExists = (id, list) => {
 		return list.find((el) => el.id === id);
 	};

@@ -9,10 +9,12 @@ import ProductDescription from "./pages/ProductDescription/index";
 import Cart from "./pages/Cart";
 
 function App() {
-	const { loadProducts } = useMainContext();
+	const { loadProducts, loadWishList, loadCartList } = useMainContext();
 
 	useEffect(() => {
 		loadProducts();
+		loadWishList();
+		loadCartList();
 	}, []);
 
 	return (

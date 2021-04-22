@@ -18,7 +18,7 @@ function Products() {
 			<CarouselSlider />
 			<h2 className="text-center mt-16">Pick & Play</h2>
 			<div className="padding-r8 padding-l8 mt-16 flex-row-center">
-				{filteredData && filteredData.map((item) => <Card key={item.id} item={item} />)}
+				{filteredData && filteredData.map((item) => <Card key={item._id} item={item} />)}
 			</div>
 		</>
 	);
