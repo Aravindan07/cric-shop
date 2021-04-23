@@ -4,10 +4,9 @@ import { useMainContext } from "../../context/main-context";
 import { getSortedData, getFilteredData } from "../../utils/Filter";
 import FilterComponent from "../../components/FilterComponent";
 import "./styles.css";
-import { useHistory } from "react-router";
+import { NavLink } from "react-router-dom";
 
 function Products() {
-	const history = useHistory();
 	const {
 		state: { showFastDeliveryOnly, sortBy, includeOutOfStock, products, categories },
 	} = useMainContext();
@@ -15,27 +14,35 @@ function Products() {
 	const sortedData = getSortedData(products, sortBy);
 	const filteredData = getFilteredData(includeOutOfStock, showFastDeliveryOnly, sortedData);
 
-	const showCategoryPage = (categoryName) => {
-		return history.push(`/categories/${categoryName}`);
-	};
-
 	return (
 		<>
 			<FilterComponent />
 			<CarouselSlider />
 			<h2 className="text-center mt-16">Pick & Play</h2>
 			<div className="flex-row-center mt-16 mb-16">
-				<button className="category-button padding-t8 padding-b8 padding-l8 padding-r8 ml-16 mr-16 c-pointer br-10 ls-1">
+				<NavLink
+					to="/"
+					className="category-button padding-t8 padding-b8 padding-l8 padding-r8 ml-16 mr-16 c-pointer br-10 ls-1"
+				>
 					All
-				</button>
+				</NavLink>
 				{categories.map((category) => (
-					<button
+					<NavLink
+						to={{
+							pathname: `/categories/${category.categoryName}`,
+							state: { category },
+						}}
 						key={category._id}
 						className="category-button padding-t8 padding-b8 padding-l8 padding-r8 ml-16 mr-16 c-pointer br-10 ls-1"
-						onClick={() => showCategoryPage(category.categoryName)}
+						activeStyle={{
+							boxShadow: "0px 0px 20px rgba(243, 244, 246, 0.8)",
+							transform: "scale(1.03)",
+							backgroundColor: "var(--primary-color)",
+							color: "#fff",
+						}}
 					>
 						{category.categoryName}
-					</button>
+					</NavLink>
 				))}
 			</div>
 			<div className="padding-r8 padding-l8 mt-16 flex-row-center">

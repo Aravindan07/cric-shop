@@ -1,34 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useMainContext } from "../../context/main-context";
 import Card from "../../components/Card";
-import { useParams } from "react-router";
+import { useLocation } from "react-router";
 
 export default function ProductsByCategory() {
-	const { state, loadCategories } = useMainContext();
-	const [test, setTest] = useState(null);
-	const { categoryName } = useParams();
-	useEffect(() => {
-		let isMounted = true;
-		let productsInCategory = state.categories.find(
-			(item) => item.categoryName === categoryName
-		);
-		if (isMounted) {
-			setTest(productsInCategory);
-		}
-		return () => {
-			isMounted = false;
-		};
-	}, [categoryName, state.categories]);
-	console.log("categoryName", categoryName);
+	const { state } = useMainContext();
+	const location = useLocation();
+	console.log("location", location);
 	console.log("state", state);
-	console.log("productsInCategory", test);
 	return (
 		<>
-			{test && (
-				<div className="padding-r8 padding-l8 mt-16 flex-row-center">
-					{test && test.products.map((item) => <Card key={item._id} item={item} />)}
-				</div>
-			)}
+			<div className="padding-r8 padding-l8 mt-16 flex-row-center">
+				{location.state.category.products.map((item) => (
+					<Card key={item._id} item={item} />
+				))}
+			</div>
 		</>
 	);
 }
