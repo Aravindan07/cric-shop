@@ -7,13 +7,10 @@ import { useHistory } from "react-router";
 function Card({ item }) {
 	const history = useHistory();
 
-	const { addItemToWishList } = useMainContext();
+	const { addOrRemoveItemFromWishList } = useMainContext();
 	const setWishListed = (event) => {
 		event.stopPropagation();
-		addItemToWishList(
-			{ ...item, wishListed: !item.wishListed },
-			ADD__OR__REMOVE__ITEM__FROM__WISHLIST
-		);
+		addOrRemoveItemFromWishList(item._id, ADD__OR__REMOVE__ITEM__FROM__WISHLIST);
 	};
 
 	const gotoProduct = (event) => {

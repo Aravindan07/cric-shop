@@ -12,34 +12,29 @@ import { ReactComponent as WishListIcon } from "../../icons/card-wish-icon.svg";
 import "./styles.css";
 
 function ProductDescriptionCard({ productToShow }) {
-	console.log("product To Show", productToShow);
 	const history = useHistory();
 	const { productId } = useParams();
 
 	const {
-		addItemToWishList,
+		addOrRemoveItemFromWishList,
 		incOrDecQuantity,
-		addItemToCartList,
-		removeItemFromCartList,
+		addOrRemoveItemFromCartList,
 	} = useMainContext();
 
 	const setWishListed = (event) => {
 		event.stopPropagation();
-		addItemToWishList(
-			{ ...productToShow, wishListed: !productToShow.wishListed },
-			ADD__OR__REMOVE__ITEM__FROM__WISHLIST
-		);
+		addOrRemoveItemFromWishList(productToShow._id, ADD__OR__REMOVE__ITEM__FROM__WISHLIST);
 	};
 
 	const incOrDecQuantityHandler = (item, operation) => {
 		if (item.quantity === 1 && operation === "dec") {
 			return null;
 		}
-		if (operation === "inc") {
-			return incOrDecQuantity({ ...item, quantity: item.quantity + 1 }, INCREMENT__QUANTITY);
+		if (operation === "increment") {
+			return incOrDecQuantity(item._id, INCREMENT__QUANTITY, operation);
 		}
-		if (operation === "dec") {
-			return incOrDecQuantity({ ...item, quantity: item.quantity - 1 }, DECREMENT__QUANTITY);
+		if (operation === "decrement") {
+			return incOrDecQuantity(item._id, DECREMENT__QUANTITY, operation);
 		}
 	};
 
@@ -47,11 +42,11 @@ function ProductDescriptionCard({ productToShow }) {
 		if (productToShow.cartListed) {
 			return history.push("/cart");
 		}
-		return addItemToCartList(productToShow._id, ADD__ITEM__TO__CART);
+		return addOrRemoveItemFromCartList(productToShow._id, ADD__ITEM__TO__CART, "add");
 	};
 
 	const removeFromCartHandler = (item) => {
-		return removeItemFromCartList(item._id, REMOVE__ITEM__FROM__CART);
+		return addOrRemoveItemFromCartList(item._id, REMOVE__ITEM__FROM__CART, "remove");
 	};
 
 	return (
@@ -120,7 +115,7 @@ function ProductDescriptionCard({ productToShow }) {
 									<button
 										className="button button--error mr-16"
 										onClick={() =>
-											incOrDecQuantityHandler(productToShow, "dec")
+											incOrDecQuantityHandler(productToShow, "decrement")
 										}
 									>
 										-
@@ -131,7 +126,7 @@ function ProductDescriptionCard({ productToShow }) {
 									<button
 										className="button button--primary ml-16"
 										onClick={() =>
-											incOrDecQuantityHandler(productToShow, "inc")
+											incOrDecQuantityHandler(productToShow, "increment")
 										}
 									>
 										+

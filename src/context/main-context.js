@@ -1,6 +1,13 @@
 import { createContext, useContext, useReducer } from "react";
 import { mainReducer } from "../reducers/mainReducer";
-import { LOAD__PRODUCTS, initialState, LOAD__WISHLIST, LOAD__CARTLIST } from "../constants";
+import {
+	LOAD__PRODUCTS,
+	initialState,
+	LOAD__WISHLIST,
+	LOAD__CARTLIST,
+	SET__LOADING,
+	LOAD__CATEGORIES,
+} from "../constants";
 import axios from "axios";
 
 const { REACT_APP_BACKEND_URL } = process.env;
@@ -12,74 +19,95 @@ export default function MainContextProvider({ children }) {
 
 	const loadProducts = async () => {
 		try {
+			dispatch({ type: SET__LOADING });
 			const { data } = await axios.get(`${REACT_APP_BACKEND_URL}/products`);
-			console.log("main data", data.products);
-			return dispatch({ type: LOAD__PRODUCTS, payload: data.products });
+			dispatch({ type: LOAD__PRODUCTS, payload: data.products });
+			return dispatch({ type: SET__LOADING });
 		} catch (error) {
 			console.error(error);
+			dispatch({ type: SET__LOADING });
 		}
 	};
 
 	const loadWishList = async () => {
 		try {
+			dispatch({ type: SET__LOADING });
 			const { data } = await axios.get(`${REACT_APP_BACKEND_URL}/wishlist`);
-			console.log("wish data", data);
-			return dispatch({ type: LOAD__WISHLIST, payload: data.items });
+			dispatch({ type: LOAD__WISHLIST, payload: data.items });
+			return dispatch({ type: SET__LOADING });
 		} catch (error) {
 			console.error(error);
+			dispatch({ type: SET__LOADING });
 		}
 	};
 
 	const loadCartList = async () => {
 		try {
+			dispatch({ type: SET__LOADING });
 			const { data } = await axios.get(`${REACT_APP_BACKEND_URL}/cartlist`);
-			console.log("cart listed data", data);
-			return dispatch({ type: LOAD__CARTLIST, payload: data.items });
+			dispatch({ type: LOAD__CARTLIST, payload: data.items });
+			return dispatch({ type: SET__LOADING });
 		} catch (error) {
 			console.error(error);
+			dispatch({ type: SET__LOADING });
 		}
 	};
 
-	const addItemToWishList = async (item, type) => {
+	const loadCategories = async () => {
 		try {
-			const { data } = await axios.post(`${REACT_APP_BACKEND_URL}/wishlist/${item._id}`, {
-				productId: item._id,
+			dispatch({ type: SET__LOADING });
+			const { data } = await axios.get(`${REACT_APP_BACKEND_URL}/categories`);
+			console.log(data);
+			dispatch({ type: LOAD__CATEGORIES, payload: data.categories });
+			return dispatch({ type: SET__LOADING });
+		} catch (error) {
+			console.error(error);
+			dispatch({ type: SET__LOADING });
+		}
+	};
+
+	const addOrRemoveItemFromWishList = async (itemId, type) => {
+		try {
+			dispatch({ type: SET__LOADING });
+			const { data } = await axios.post(`${REACT_APP_BACKEND_URL}/wishlist/${itemId}`, {
+				productId: itemId,
 			});
 			dispatch({ type: type, payload: data });
+			return dispatch({ type: SET__LOADING });
 		} catch (error) {
 			console.error(error);
+			dispatch({ type: SET__LOADING });
 		}
 	};
 
-	const addItemToCartList = async (itemId, type) => {
-		console.log("Item in cartlist", itemId);
+	const addOrRemoveItemFromCartList = async (itemId, type) => {
 		try {
+			dispatch({ type: SET__LOADING });
 			const { data } = await axios.post(`${REACT_APP_BACKEND_URL}/cartlist/${itemId}`, {
 				productId: itemId,
 			});
 			dispatch({ type: type, payload: data });
+			return dispatch({ type: SET__LOADING });
 		} catch (error) {
 			console.error(error);
+			dispatch({ type: SET__LOADING });
 		}
 	};
 
-	const removeItemFromCartList = async (itemId, type) => {
+	const incOrDecQuantity = async (itemId, type, operation) => {
 		try {
-			const { data } = await axios.post(`${REACT_APP_BACKEND_URL}/cartlist/${itemId}`, {
-				productId: itemId,
-			});
-			dispatch({ type: type, payload: data });
+			dispatch({ type: SET__LOADING });
+			const { data } = await axios.put(
+				`${REACT_APP_BACKEND_URL}/cartlist/${itemId}/quantity?type=${operation}`,
+				{
+					productId: itemId,
+				}
+			);
+			dispatch({ type: type, payload: data.item });
+			return dispatch({ type: SET__LOADING });
 		} catch (error) {
 			console.error(error);
-		}
-	};
-
-	const incOrDecQuantity = async (item, type) => {
-		try {
-			const { data } = await axios.put(`/api/cartlists/${item.id}`, { cartlist: item });
-			dispatch({ type: type, payload: data });
-		} catch (error) {
-			console.error(error);
+			dispatch({ type: SET__LOADING });
 		}
 	};
 
@@ -91,9 +119,9 @@ export default function MainContextProvider({ children }) {
 				loadProducts,
 				loadWishList,
 				loadCartList,
-				addItemToWishList,
-				addItemToCartList,
-				removeItemFromCartList,
+				loadCategories,
+				addOrRemoveItemFromWishList,
+				addOrRemoveItemFromCartList,
 				incOrDecQuantity,
 			}}
 		>

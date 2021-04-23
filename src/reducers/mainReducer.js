@@ -12,6 +12,8 @@ import {
 	CLEAR__FILTERS,
 	LOAD__WISHLIST,
 	LOAD__CARTLIST,
+	SET__LOADING,
+	LOAD__CATEGORIES,
 } from "../constants";
 
 export function mainReducer(state, action) {
@@ -36,6 +38,16 @@ export function mainReducer(state, action) {
 				...state,
 				cartList: action.payload,
 			};
+		case LOAD__CATEGORIES:
+			return {
+				...state,
+				categories: action.payload,
+			};
+		case SET__LOADING:
+			return {
+				...state,
+				isLoading: !state.isLoading,
+			};
 		case ADD__OR__REMOVE__ITEM__FROM__WISHLIST:
 			if (checkItemExists(action.payload._id, state.wishList)) {
 				return {
@@ -47,6 +59,13 @@ export function mainReducer(state, action) {
 					products: state.products.map((item) =>
 						item._id === action.payload._id ? { ...item, wishListed: false } : item
 					),
+					categories: state.categories.map((item) =>
+						item.products.map((product) =>
+							product._id === action.payload._id
+								? { ...product, wishListed: false }
+								: product
+						)
+					),
 				};
 			}
 			return {
@@ -57,6 +76,13 @@ export function mainReducer(state, action) {
 				),
 				products: state.products.map((item) =>
 					item._id === action.payload._id ? { ...item, wishListed: true } : item
+				),
+				categories: state.categories.map((item) =>
+					item.products.map((product) =>
+						product._id === action.payload._id
+							? { ...product, wishListed: true }
+							: product
+					)
 				),
 			};
 
@@ -82,13 +108,13 @@ export function mainReducer(state, action) {
 			return {
 				...state,
 				cartList: state.cartList.map((item) =>
-					item.id === action.payload.cartlist.id
-						? { ...item, quantity: item.quantity + 1 }
+					item._id === action.payload._id
+						? { ...item, quantityAddedToCart: item.quantityAddedToCart + 1 }
 						: item
 				),
 				products: state.products.map((item) =>
-					item.id === action.payload.cartlist.id
-						? { ...item, quantity: item.quantity + 1 }
+					item._id === action.payload._id
+						? { ...item, quantityAddedToCart: item.quantityAddedToCart + 1 }
 						: item
 				),
 			};
@@ -97,13 +123,13 @@ export function mainReducer(state, action) {
 			return {
 				...state,
 				cartList: state.cartList.map((item) =>
-					item.id === action.payload.cartlist.id
-						? { ...item, quantity: item.quantity - 1 }
+					item._id === action.payload._id
+						? { ...item, quantityAddedToCart: item.quantityAddedToCart - 1 }
 						: item
 				),
 				products: state.products.map((item) =>
-					item.id === action.payload.cartlist.id
-						? { ...item, quantity: item.quantity - 1 }
+					item._id === action.payload._id
+						? { ...item, quantityAddedToCart: item.quantityAddedToCart - 1 }
 						: item
 				),
 			};
