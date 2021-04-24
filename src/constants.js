@@ -7,6 +7,7 @@ export const initialState = {
 	showFastDeliveryOnly: false,
 	sortBy: "",
 	isLoading: false,
+	message: null,
 };
 
 export const LOAD__PRODUCTS = "LOAD__PRODUCTS";
@@ -24,3 +25,5 @@ export const INCLUDE__OUT__OF__STOCK = "INCLUDE__OUT__OF__STOCK";
 export const INCLUDE__FAST__DELIVERY = "INCLUDE__FAST__DELIVERY";
 export const CLEAR__FILTERS = "CLEAR__FILTERS";
 export const SET__LOADING = "SET__LOADING";
+export const SHOW__MESSAGE = "SHOW__MESSAGE";
+export const REMOVE__MESSAGE = "REMOVE__MESSAGE";

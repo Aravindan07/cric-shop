@@ -1,6 +1,6 @@
 .loading-bg {
 	position: fixed;
-	background-color: rgba(0, 0, 0, 0.2);
+	background-color: var(--background-color);
 	height: 100vh;
 	width: 100%;
 	display: flex;
@@ -19,7 +19,7 @@
 	position: absolute;
 	width: 6px;
 	height: 6px;
-	background: #15b997;
+	background: var(--primary-color);
 	border-radius: 50%;
 	animation: lds-default 1.2s linear infinite;
 }

@@ -30,7 +30,6 @@ function Products() {
 					<NavLink
 						to={{
 							pathname: `/categories/${category.categoryName}`,
-							state: { category },
 						}}
 						key={category._id}
 						className="category-button padding-t8 padding-b8 padding-l8 padding-r8 ml-16 mr-16 c-pointer br-10 ls-1"

@@ -7,8 +7,11 @@ import {
 	LOAD__CARTLIST,
 	SET__LOADING,
 	LOAD__CATEGORIES,
+	SHOW__MESSAGE,
+	REMOVE__MESSAGE,
 } from "../constants";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const { REACT_APP_BACKEND_URL } = process.env;
 
@@ -72,8 +75,22 @@ export default function MainContextProvider({ children }) {
 			const { data } = await axios.post(`${REACT_APP_BACKEND_URL}/wishlist/${itemId}`, {
 				productId: itemId,
 			});
-			dispatch({ type: type, payload: data });
-			return dispatch({ type: SET__LOADING });
+			console.log("data", data);
+			dispatch({ type: type, payload: data.item });
+			dispatch({ type: SET__LOADING });
+			dispatch(
+				{ type: SHOW__MESSAGE, payload: data.message },
+				data.message.split(" ")[1].toLowerCase() === "removed"
+					? toast.info(data.message, {
+							style: { backgroundColor: "#dcdcdc", color: "var(--font-color)" },
+							autoClose: 3000,
+					  })
+					: toast.success(data.message, {
+							style: { backgroundColor: "#15b996" },
+							autoClose: 3000,
+					  })
+			);
+			return dispatch({ type: REMOVE__MESSAGE });
 		} catch (error) {
 			console.error(error);
 			dispatch({ type: SET__LOADING });
@@ -86,8 +103,22 @@ export default function MainContextProvider({ children }) {
 			const { data } = await axios.post(`${REACT_APP_BACKEND_URL}/cartlist/${itemId}`, {
 				productId: itemId,
 			});
-			dispatch({ type: type, payload: data });
-			return dispatch({ type: SET__LOADING });
+			console.log("cart data", data);
+			dispatch({ type: type, payload: data.item });
+			dispatch({ type: SET__LOADING });
+			dispatch(
+				{ type: SHOW__MESSAGE, payload: data.message },
+				data.message.split(" ")[1].toLowerCase() === "removed"
+					? toast.info(data.message, {
+							style: { backgroundColor: "#dcdcdc", color: "var(--font-color)" },
+							autoClose: 3000,
+					  })
+					: toast.success(data.message, {
+							style: { backgroundColor: "#15b996" },
+							autoClose: 3000,
+					  })
+			);
+			return dispatch({ type: REMOVE__MESSAGE });
 		} catch (error) {
 			console.error(error);
 			dispatch({ type: SET__LOADING });

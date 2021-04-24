@@ -14,6 +14,8 @@ import {
 	LOAD__CARTLIST,
 	SET__LOADING,
 	LOAD__CATEGORIES,
+	SHOW__MESSAGE,
+	REMOVE__MESSAGE,
 } from "../constants";
 
 export function mainReducer(state, action) {
@@ -169,6 +171,16 @@ export function mainReducer(state, action) {
 				includeOutOfStock: true,
 				showFastDeliveryOnly: false,
 				sortBy: null,
+			};
+		case SHOW__MESSAGE:
+			return {
+				...state,
+				message: action.payload,
+			};
+		case REMOVE__MESSAGE:
+			return {
+				...state,
+				message: null,
 			};
 		default:
 			return state;
