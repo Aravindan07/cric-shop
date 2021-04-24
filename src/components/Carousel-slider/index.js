@@ -13,13 +13,13 @@ export default function CarouselSlider() {
 				</div>
 				<div>
 					<img
-						src="https://www.decathlon.in/_next/image?url=https%3A%2F%2Fcontents.mediadecathlon.com%2Fs850794%2Fk%24d194a2237d1e38c582cb362fc031cb49%2Fclearance%2520desktop.jpg%3Ff%3D1920x470%26format%3Dauto&w=1920&q=75"
+						src="https://www.decathlon.in/_next/image?url=https%3A%2F%2Fcontents.mediadecathlon.com%2Fs852987%2Fk%24691bebc336b1cd65269cbce701dc602d%2Fmain%2520banners%2520ipl%2520banner%2520desktop%2520category.jpg%3Ff%3D1920x470%26format%3Dauto&w=1920&q=75"
 						alt="carousel"
 					/>
 				</div>
 				<div>
 					<img
-						src="https://www.decathlon.in/_next/image?url=https%3A%2F%2Fcontents.mediadecathlon.com%2Fs853979%2Fk%2442d76ebcd75e6b3a8a69081e62d80493%2Fsummer%2520desktop.jpg%3Ff%3D1920x470%26format%3Dauto&w=1920&q=75"
+						src="https://www.decathlon.in/_next/image?url=https%3A%2F%2Fcontents.mediadecathlon.com%2Fs852993%2Fk%243a07031933636d8ee1bc89fea10e292c%2Fmain%2520banners%2520ipl%2520banner%2520desktop%2520category.jpg%3Ff%3D1920x470%26format%3Dauto&w=1920&q=75"
 						alt="carousel"
 					/>
 				</div>

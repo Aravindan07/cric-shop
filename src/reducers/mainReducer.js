@@ -19,8 +19,6 @@ import {
 } from "../constants";
 
 export function mainReducer(state, action) {
-	console.log("action", action);
-	console.log("state", state);
 	const checkItemExists = (id, list) => {
 		return list.find((el) => el._id === id);
 	};
@@ -51,7 +49,6 @@ export function mainReducer(state, action) {
 				isLoading: !state.isLoading,
 			};
 		case ADD__OR__REMOVE__ITEM__FROM__WISHLIST:
-			console.log("inside WishListReducer");
 			if (checkItemExists(action.payload._id, state.wishList)) {
 				return {
 					...state,
@@ -63,7 +60,6 @@ export function mainReducer(state, action) {
 						item._id === action.payload._id ? { ...item, wishListed: false } : item
 					),
 					categories: state.categories.map((item) => {
-						console.log("individual Item", item);
 						return {
 							...item,
 							products: item.products.map((el) =>
@@ -83,7 +79,6 @@ export function mainReducer(state, action) {
 					item._id === action.payload._id ? { ...item, wishListed: true } : item
 				),
 				categories: state.categories.map((item) => {
-					console.log("individual Item", item);
 					return {
 						...item,
 						products: item.products.map((el) =>

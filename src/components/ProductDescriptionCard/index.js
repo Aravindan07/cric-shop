@@ -27,7 +27,7 @@ function ProductDescriptionCard({ productToShow }) {
 	};
 
 	const incOrDecQuantityHandler = (item, operation) => {
-		if (item.quantity === 1 && operation === "dec") {
+		if (item.quantityAddedToCart === 1 && operation === "decrement") {
 			return null;
 		}
 		if (operation === "increment") {

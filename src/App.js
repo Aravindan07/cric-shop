@@ -13,15 +13,12 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-	const { loadProducts, loadWishList, loadCartList, loadCategories, state } = useMainContext();
+	const { loadEssentials, state } = useMainContext();
 
 	useEffect(() => {
 		let isMounted = true;
 		if (isMounted) {
-			loadProducts();
-			loadWishList();
-			loadCartList();
-			loadCategories();
+			loadEssentials();
 		}
 		return () => {
 			isMounted = false;
@@ -29,14 +26,12 @@ function App() {
 	}, []);
 
 	toast.configure();
-	// const notify = () => toast.success(state.message);
 
 	return (
 		<div className="flex-col">
 			{state.isLoading && <Loader />}
 			<Navbar />
 			<ToastContainer />
-			{/* {state.message && notify()} */}
 			<div className="main-container w100 padding-t8 padding-b8">
 				<Switch>
 					<Route path="/" exact component={Products} />
