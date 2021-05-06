@@ -16,6 +16,7 @@ function ProductDescriptionCard({ productToShow }) {
 	const { productId } = useParams();
 
 	const {
+		state: { isAuthenticated },
 		addOrRemoveItemFromWishList,
 		incOrDecQuantity,
 		addOrRemoveItemFromCartList,
@@ -23,7 +24,13 @@ function ProductDescriptionCard({ productToShow }) {
 
 	const setWishListed = (event) => {
 		event.stopPropagation();
-		addOrRemoveItemFromWishList(productToShow._id, ADD__OR__REMOVE__ITEM__FROM__WISHLIST);
+		if (isAuthenticated) {
+			return addOrRemoveItemFromWishList(
+				productToShow._id,
+				ADD__OR__REMOVE__ITEM__FROM__WISHLIST
+			);
+		}
+		return history.push("/my-account");
 	};
 
 	const incOrDecQuantityHandler = (item, operation) => {
@@ -42,7 +49,10 @@ function ProductDescriptionCard({ productToShow }) {
 		if (productToShow.cartListed) {
 			return history.push("/cart");
 		}
-		return addOrRemoveItemFromCartList(productToShow._id, ADD__ITEM__TO__CART, "add");
+		if (isAuthenticated) {
+			return addOrRemoveItemFromCartList(productToShow._id, ADD__ITEM__TO__CART, "add");
+		}
+		return history.push("/my-account");
 	};
 
 	const removeFromCartHandler = (item) => {

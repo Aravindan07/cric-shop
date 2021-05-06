@@ -30,13 +30,23 @@ function Navbar() {
 					</div>
 
 					<div className="flex-row-space-between">
-						<div className="profile__image c-pointer">
-							<img
-								className="avatar--medium rounded-image"
-								src="https://polish-ui.netlify.app/icons/fallback.svg"
-								alt="Avatar"
-							/>
-						</div>
+						{state.isAuthenticated ? (
+							<Link to="/my-account">
+								<div className="profile__image c-pointer">
+									<img
+										className="avatar--medium rounded-image"
+										src="https://polish-ui.netlify.app/icons/fallback.svg"
+										alt="Avatar"
+									/>
+								</div>
+							</Link>
+						) : (
+							<Link to="/my-account">
+								<button className="button navbar--button font-color--white mr-16">
+									Sign In
+								</button>
+							</Link>
+						)}
 						<div className="icons-div">
 							{state.wishList.length > 0 && (
 								<div className="notification-div">{state.wishList.length}</div>

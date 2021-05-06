@@ -6,11 +6,17 @@ import { useHistory } from "react-router";
 
 function Card({ item }) {
 	const history = useHistory();
+	const {
+		state: { isAuthenticated },
+	} = useMainContext();
 
 	const { addOrRemoveItemFromWishList } = useMainContext();
 	const setWishListed = (event) => {
 		event.stopPropagation();
-		addOrRemoveItemFromWishList(item._id, ADD__OR__REMOVE__ITEM__FROM__WISHLIST);
+		if (isAuthenticated) {
+			return addOrRemoveItemFromWishList(item._id, ADD__OR__REMOVE__ITEM__FROM__WISHLIST);
+		}
+		return history.push("/my-account");
 	};
 
 	const gotoProduct = (event) => {

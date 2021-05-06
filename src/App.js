@@ -9,7 +9,9 @@ import ProductDescription from "./pages/ProductDescription/index";
 import Cart from "./pages/Cart";
 import Loader from "./components/Loader";
 import ProductsByCategory from "./pages/ProductsByCategory";
+import AccountPage from "./pages/AccountPage";
 import { toast, ToastContainer } from "react-toastify";
+import { PrivateRoute } from "./privateRoutes";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
@@ -35,10 +37,11 @@ function App() {
 			<div className="main-container w100 padding-t8 padding-b8">
 				<Switch>
 					<Route path="/" exact component={Products} />
-					<Route path="/cart" component={Cart} />
-					<Route path="/wishlist" component={Wishlist} />
+					<PrivateRoute exact path="/cart" component={Cart} />
+					<PrivateRoute exact path="/wishlist" component={Wishlist} />
 					<Route path="/products/:productId" component={ProductDescription} />
 					<Route path="/categories/:categoryName" component={ProductsByCategory} />
+					<Route path="/my-account" component={AccountPage} />
 				</Switch>
 			</div>
 		</div>

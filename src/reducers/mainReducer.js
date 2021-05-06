@@ -16,6 +16,8 @@ import {
 	LOAD__CATEGORIES,
 	SHOW__MESSAGE,
 	REMOVE__MESSAGE,
+	SET__LOGIN,
+	SET__LOGOUT,
 } from "../constants";
 
 export function mainReducer(state, action) {
@@ -177,6 +179,19 @@ export function mainReducer(state, action) {
 				...state,
 				message: null,
 			};
+
+		case SET__LOGIN:
+			return {
+				...state,
+				isAuthenticated: true,
+			};
+
+		case SET__LOGOUT:
+			return {
+				...state,
+				isAuthenticated: false,
+			};
+
 		default:
 			return state;
 	}

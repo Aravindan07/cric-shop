@@ -8,6 +8,7 @@ export const initialState = {
 	sortBy: "",
 	isLoading: false,
 	message: null,
+	isAuthenticated: false,
 };
 
 export const LOAD__PRODUCTS = "LOAD__PRODUCTS";
@@ -27,3 +28,5 @@ export const CLEAR__FILTERS = "CLEAR__FILTERS";
 export const SET__LOADING = "SET__LOADING";
 export const SHOW__MESSAGE = "SHOW__MESSAGE";
 export const REMOVE__MESSAGE = "REMOVE__MESSAGE";
+export const SET__LOGIN = "SET__LOGIN";
+export const SET__LOGOUT = "SET__LOGOUT";
