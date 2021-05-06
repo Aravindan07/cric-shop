@@ -25,7 +25,7 @@ function App() {
 		return () => {
 			isMounted = false;
 		};
-	}, []);
+	}, [state.isAuthenticated]);
 
 	toast.configure();
 

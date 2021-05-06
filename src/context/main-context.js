@@ -22,16 +22,27 @@ export default function MainContextProvider({ children }) {
 
 	const loadEssentials = async () => {
 		try {
-			dispatch({ type: SET__LOADING });
-			const { data: productData } = await axios.get(`${REACT_APP_BACKEND_URL}/products`);
-			const { data: categoriesData } = await axios.get(`${REACT_APP_BACKEND_URL}/categories`);
-			const { data: wishListData } = await axios.get(`${REACT_APP_BACKEND_URL}/wishlist`);
-			const { data: cartListData } = await axios.get(`${REACT_APP_BACKEND_URL}/cartlist`);
-			dispatch({ type: LOAD__PRODUCTS, payload: productData.products });
-			dispatch({ type: LOAD__CATEGORIES, payload: categoriesData.categories });
-			dispatch({ type: LOAD__WISHLIST, payload: wishListData.items });
-			dispatch({ type: LOAD__CARTLIST, payload: cartListData.items });
-			return dispatch({ type: SET__LOADING });
+			if (!state.isAuthenticated) {
+				dispatch({ type: SET__LOADING });
+				const { data: productData } = await axios.get(`${REACT_APP_BACKEND_URL}/products`);
+				const { data: categoriesData } = await axios.get(
+					`${REACT_APP_BACKEND_URL}/categories`
+				);
+				dispatch({ type: LOAD__PRODUCTS, payload: productData.products });
+				dispatch({ type: LOAD__CATEGORIES, payload: categoriesData.categories });
+				dispatch({ type: LOAD__WISHLIST, payload: [] });
+				dispatch({ type: LOAD__CARTLIST, payload: [] });
+				return dispatch({ type: SET__LOADING });
+			}
+
+			if (state.isAuthenticated) {
+				dispatch({ type: SET__LOADING });
+				const { data: wishListData } = await axios.get(`${REACT_APP_BACKEND_URL}/wishlist`);
+				const { data: cartListData } = await axios.get(`${REACT_APP_BACKEND_URL}/cartlist`);
+				dispatch({ type: LOAD__WISHLIST, payload: wishListData.items });
+				dispatch({ type: LOAD__CARTLIST, payload: cartListData.items });
+				return dispatch({ type: SET__LOADING });
+			}
 		} catch (error) {
 			console.error(error);
 			dispatch({ type: SET__LOADING });

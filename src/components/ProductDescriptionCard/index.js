@@ -46,7 +46,7 @@ function ProductDescriptionCard({ productToShow }) {
 	};
 
 	const addItemToCart = () => {
-		if (productToShow.cartListed) {
+		if (productToShow.cartListed && isAuthenticated) {
 			return history.push("/cart");
 		}
 		if (isAuthenticated) {
@@ -66,7 +66,9 @@ function ProductDescriptionCard({ productToShow }) {
 					<div className="image-wishlist-icon-container">
 						<WishListIcon
 							fill={
-								productToShow.wishListed ? "var(--complementary-color)" : "#9b9999"
+								productToShow.wishListed && isAuthenticated
+									? "var(--complementary-color)"
+									: "#9b9999"
 							}
 							onClick={(e) => setWishListed(e)}
 						/>
@@ -148,7 +150,9 @@ function ProductDescriptionCard({ productToShow }) {
 									className="button button--primary text-center centered--button mt-16 mb-16"
 									onClick={() => addItemToCart()}
 								>
-									{productToShow.cartListed ? "Go to Cart" : "Add to Cart"}
+									{productToShow.cartListed && isAuthenticated
+										? "Go to Cart"
+										: "Add to Cart"}
 								</button>
 							)}
 							{!productId && (

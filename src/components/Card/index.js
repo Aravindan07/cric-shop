@@ -41,7 +41,11 @@ function Card({ item }) {
 				<div className="card__body">
 					<div className="wishlist-icon-container">
 						<WishListIcon
-							fill={item.wishListed ? "var(--complementary-color)" : "#9b9999"}
+							fill={
+								item.wishListed && isAuthenticated
+									? "var(--complementary-color)"
+									: "#9b9999"
+							}
 							onClick={(e) => setWishListed(e)}
 						/>
 					</div>
