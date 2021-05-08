@@ -1,12 +1,14 @@
 import { useParams } from "react-router-dom";
-import { useMainContext } from "../../context/main-context";
+import { useECommerceContext } from "../../context";
 import ProductDescriptionCard from "../../components/ProductDescriptionCard";
-import "./styles.css";
+import "./productDescription.css";
+import { useDocumentTitle } from "../../utils/useDocumentTitle";
 
 function ProductDescription() {
-	const { state } = useMainContext();
+	const { state } = useECommerceContext();
 	const { productId } = useParams();
 	const productToShow = state.products.find((el) => el._id === productId);
+	useDocumentTitle(`${productToShow.name} | CricShop`);
 
 	return (
 		<div>

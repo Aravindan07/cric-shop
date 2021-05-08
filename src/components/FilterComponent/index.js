@@ -1,4 +1,4 @@
-import { useMainContext } from "../../context/main-context";
+import { useECommerceContext } from "../../context";
 import {
 	PRICE__HIGH__TO__LOW,
 	PRICE__LOW__TO__HIGH,
@@ -6,13 +6,13 @@ import {
 	INCLUDE__OUT__OF__STOCK,
 	CLEAR__FILTERS,
 } from "../../constants";
-import "./styles.css";
+import "./filter.css";
 
 export default function FilterComponent() {
 	const {
 		state: { showFastDeliveryOnly, sortBy, includeOutOfStock },
 		dispatch,
-	} = useMainContext();
+	} = useECommerceContext();
 
 	const clearFilters = () => {
 		return dispatch({ type: CLEAR__FILTERS });
@@ -27,18 +27,20 @@ export default function FilterComponent() {
 						<input
 							type="radio"
 							name="sort"
+							className="mr-5"
 							onChange={() => dispatch({ type: PRICE__HIGH__TO__LOW })}
 							checked={sortBy && sortBy === PRICE__HIGH__TO__LOW}
-						></input>{" "}
+						></input>
 						Price - High to Low
 					</label>
 					<label className="mb-8">
 						<input
 							type="radio"
 							name="sort"
+							className="mr-5"
 							onChange={() => dispatch({ type: PRICE__LOW__TO__HIGH })}
 							checked={sortBy && sortBy === PRICE__LOW__TO__HIGH}
-						></input>{" "}
+						></input>
 						Price - Low to High
 					</label>
 				</fieldset>

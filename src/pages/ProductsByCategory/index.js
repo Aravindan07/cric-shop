@@ -1,15 +1,14 @@
 import React from "react";
-import { useMainContext } from "../../context/main-context";
+import { useECommerceContext } from "../../context";
 import Card from "../../components/Card";
 import { useParams } from "react-router";
+import { useDocumentTitle } from "../../utils/useDocumentTitle";
 
 export default function ProductsByCategory() {
-	const { state } = useMainContext();
+	const { state } = useECommerceContext();
 	const { categoryName } = useParams();
-	console.log("categoryName", categoryName);
 	const foundCategory = state.categories.find((el) => el.categoryName === categoryName);
-	console.log("foundCategory", foundCategory);
-	console.log("state", state);
+	useDocumentTitle(`${categoryName} | CricShop`);
 	return (
 		<>
 			<div className="padding-r8 padding-l8 mt-16 flex-row-center">

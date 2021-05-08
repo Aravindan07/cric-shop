@@ -1,10 +1,11 @@
-import { useMainContext } from "../../context/main-context";
+import { useECommerceContext } from "../../context";
 import { toast } from "react-toastify";
+import "./placeOrder.css";
 
 export default function PlaceOrder() {
 	const {
 		state: { cartList },
-	} = useMainContext();
+	} = useECommerceContext();
 
 	const totalPrice = (accumulator, currentValue) =>
 		accumulator + currentValue.quantityAddedToCart * currentValue.price;
@@ -15,14 +16,7 @@ export default function PlaceOrder() {
 		toast.success("Order placed Successfully!", {
 			hideProgressBar: true,
 			autoClose: 3000,
-			style: {
-				backgroundColor: "var(--background-color)",
-				border: "2px solid var(--primary-color)",
-				borderRadius: "5px",
-				color: "var(--primary-color)",
-				fontSize: "18px",
-				letterSpacing: "1px",
-			},
+			className: "toast-div",
 		});
 
 	return (

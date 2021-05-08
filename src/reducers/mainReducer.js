@@ -1,71 +1,51 @@
-import {
-	LOAD__PRODUCTS,
-	ADD__OR__REMOVE__ITEM__FROM__WISHLIST,
-	ADD__ITEM__TO__CART,
-	REMOVE__ITEM__FROM__CART,
-	INCREMENT__QUANTITY,
-	DECREMENT__QUANTITY,
-	PRICE__HIGH__TO__LOW,
-	PRICE__LOW__TO__HIGH,
-	INCLUDE__FAST__DELIVERY,
-	INCLUDE__OUT__OF__STOCK,
-	CLEAR__FILTERS,
-	LOAD__WISHLIST,
-	LOAD__CARTLIST,
-	SET__LOADING,
-	LOAD__CATEGORIES,
-	SHOW__MESSAGE,
-	REMOVE__MESSAGE,
-	SET__LOGIN,
-	SET__LOGOUT,
-} from "../constants";
+import * as Actions from "../constants";
 
-export function mainReducer(state, action) {
+export function mainReducer(state, { type, payload }) {
 	const checkItemExists = (id, list) => {
 		return list.find((el) => el._id === id);
 	};
-	switch (action.type) {
-		case LOAD__PRODUCTS:
+	switch (type) {
+		case Actions.LOAD__PRODUCTS:
 			return {
 				...state,
-				products: action.payload,
+				products: payload,
 			};
-		case LOAD__WISHLIST:
+		case Actions.LOAD__WISHLIST:
 			return {
 				...state,
-				wishList: action.payload,
+				wishList: payload,
 			};
-		case LOAD__CARTLIST:
+		case Actions.LOAD__CARTLIST:
 			return {
 				...state,
-				cartList: action.payload,
+				cartList: payload,
 			};
-		case LOAD__CATEGORIES:
+		case Actions.LOAD__CATEGORIES:
 			return {
 				...state,
-				categories: action.payload,
+				categories: payload,
 			};
-		case SET__LOADING:
+		case Actions.SET__LOADING:
 			return {
 				...state,
 				isLoading: !state.isLoading,
 			};
-		case ADD__OR__REMOVE__ITEM__FROM__WISHLIST:
-			if (checkItemExists(action.payload._id, state.wishList)) {
+		case Actions.ADD__OR__REMOVE__ITEM__FROM__WISHLIST:
+			if (checkItemExists(payload._id, state.wishList)) {
 				return {
 					...state,
-					wishList: state.wishList.filter((el) => el._id !== action.payload._id),
+					wishList: state.wishList.filter((el) => el._id !== payload._id),
 					cartList: state.cartList.map((item) =>
-						item._id === action.payload._id ? { ...item, wishListed: false } : item
+						item._id === payload._id ? { ...item, wishListed: false } : item
 					),
 					products: state.products.map((item) =>
-						item._id === action.payload._id ? { ...item, wishListed: false } : item
+						item._id === payload._id ? { ...item, wishListed: false } : item
 					),
 					categories: state.categories.map((item) => {
 						return {
 							...item,
 							products: item.products.map((el) =>
-								el._id === action.payload._id ? { ...el, wishListed: false } : el
+								el._id === payload._id ? { ...el, wishListed: false } : el
 							),
 						};
 					}),
@@ -73,120 +53,120 @@ export function mainReducer(state, action) {
 			}
 			return {
 				...state,
-				wishList: state.wishList.concat(action.payload),
+				wishList: state.wishList.concat(payload),
 				cartList: state.cartList.map((item) =>
-					item._id === action.payload._id ? { ...item, wishListed: true } : item
+					item._id === payload._id ? { ...item, wishListed: true } : item
 				),
 				products: state.products.map((item) =>
-					item._id === action.payload._id ? { ...item, wishListed: true } : item
+					item._id === payload._id ? { ...item, wishListed: true } : item
 				),
 				categories: state.categories.map((item) => {
 					return {
 						...item,
 						products: item.products.map((el) =>
-							el._id === action.payload._id ? { ...el, wishListed: true } : el
+							el._id === payload._id ? { ...el, wishListed: true } : el
 						),
 					};
 				}),
 			};
 
-		case ADD__ITEM__TO__CART:
+		case Actions.ADD__ITEM__TO__CART:
 			return {
 				...state,
-				cartList: state.cartList.concat(action.payload),
+				cartList: state.cartList.concat(payload),
 				products: state.products.map((item) =>
-					item._id === action.payload._id ? { ...item, cartListed: true } : item
+					item._id === payload._id ? { ...item, cartListed: true } : item
 				),
 			};
 
-		case REMOVE__ITEM__FROM__CART:
+		case Actions.REMOVE__ITEM__FROM__CART:
 			return {
 				...state,
-				cartList: state.cartList.filter((el) => el._id !== action.payload._id),
+				cartList: state.cartList.filter((el) => el._id !== payload._id),
 				products: state.products.map((item) =>
-					item._id === action.payload._id ? { ...item, cartListed: false } : item
+					item._id === payload._id ? { ...item, cartListed: false } : item
 				),
 			};
 
-		case INCREMENT__QUANTITY:
+		case Actions.INCREMENT__QUANTITY:
 			return {
 				...state,
 				cartList: state.cartList.map((item) =>
-					item._id === action.payload._id
+					item._id === payload._id
 						? { ...item, quantityAddedToCart: item.quantityAddedToCart + 1 }
 						: item
 				),
 				products: state.products.map((item) =>
-					item._id === action.payload._id
+					item._id === payload._id
 						? { ...item, quantityAddedToCart: item.quantityAddedToCart + 1 }
 						: item
 				),
 			};
 
-		case DECREMENT__QUANTITY:
+		case Actions.DECREMENT__QUANTITY:
 			return {
 				...state,
 				cartList: state.cartList.map((item) =>
-					item._id === action.payload._id
+					item._id === payload._id
 						? { ...item, quantityAddedToCart: item.quantityAddedToCart - 1 }
 						: item
 				),
 				products: state.products.map((item) =>
-					item._id === action.payload._id
+					item._id === payload._id
 						? { ...item, quantityAddedToCart: item.quantityAddedToCart - 1 }
 						: item
 				),
 			};
 
-		case INCLUDE__OUT__OF__STOCK:
+		case Actions.INCLUDE__OUT__OF__STOCK:
 			return {
 				...state,
 				includeOutOfStock: !state.includeOutOfStock,
 			};
 
-		case INCLUDE__FAST__DELIVERY:
+		case Actions.INCLUDE__FAST__DELIVERY:
 			return {
 				...state,
 				showFastDeliveryOnly: !state.showFastDeliveryOnly,
 			};
 
-		case PRICE__HIGH__TO__LOW:
+		case Actions.PRICE__HIGH__TO__LOW:
 			return {
 				...state,
-				sortBy: action.type,
+				sortBy: type,
 			};
 
-		case PRICE__LOW__TO__HIGH:
+		case Actions.PRICE__LOW__TO__HIGH:
 			return {
 				...state,
-				sortBy: action.type,
+				sortBy: type,
 			};
 
-		case CLEAR__FILTERS:
+		case Actions.CLEAR__FILTERS:
 			return {
 				...state,
 				includeOutOfStock: true,
 				showFastDeliveryOnly: false,
 				sortBy: null,
 			};
-		case SHOW__MESSAGE:
+		case Actions.SHOW__MESSAGE:
 			return {
 				...state,
-				message: action.payload,
+				message: payload,
 			};
-		case REMOVE__MESSAGE:
+		case Actions.REMOVE__MESSAGE:
 			return {
 				...state,
 				message: null,
 			};
 
-		case SET__LOGIN:
+		case Actions.SET__LOGIN:
 			return {
 				...state,
 				isAuthenticated: true,
 			};
 
-		case SET__LOGOUT:
+		case Actions.SET__LOGOUT:
 			return {
 				...state,
 				isAuthenticated: false,

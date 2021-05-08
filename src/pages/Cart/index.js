@@ -1,10 +1,12 @@
-import { useMainContext } from "../../context/main-context";
+import { useECommerceContext } from "../../context";
 import ProductDescriptionCard from "../../components/ProductDescriptionCard";
 import PlaceOrder from "../../components/PlaceOrder";
-import "./styles.css";
+import "./cart.css";
+import { useDocumentTitle } from "../../utils/useDocumentTitle";
 
 export default function Cart() {
-	const { state } = useMainContext();
+	const { state } = useECommerceContext();
+	useDocumentTitle("Cart | CricShop");
 
 	return (
 		<div className="padding-l24 padding-r24 padding-t24 padding-b24">

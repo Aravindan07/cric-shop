@@ -1,15 +1,8 @@
-export const initialState = {
-	products: [],
-	wishList: [],
-	cartList: [],
-	categories: [],
-	includeOutOfStock: true,
-	showFastDeliveryOnly: false,
-	sortBy: "",
-	isLoading: false,
-	message: null,
-	isAuthenticated: false,
-};
+export const carouselImages = [
+	"https://www.decathlon.in/_next/image?url=https%3A%2F%2Fcontents.mediadecathlon.com%2Fs853980%2Fk%2474855d9d9d5920b0ca50640b2b758e7c%2Fmain%2520banners%2520galaxy%2520to%2520galaxy%2520main%2520banner%2520desktop.jpg%3Ff%3D1920x470%26format%3Dauto&w=1920&q=75",
+	"https://www.decathlon.in/_next/image?url=https%3A%2F%2Fcontents.mediadecathlon.com%2Fs852987%2Fk%24691bebc336b1cd65269cbce701dc602d%2Fmain%2520banners%2520ipl%2520banner%2520desktop%2520category.jpg%3Ff%3D1920x470%26format%3Dauto&w=1920&q=75",
+	"https://www.decathlon.in/_next/image?url=https%3A%2F%2Fcontents.mediadecathlon.com%2Fs852993%2Fk%243a07031933636d8ee1bc89fea10e292c%2Fmain%2520banners%2520ipl%2520banner%2520desktop%2520category.jpg%3Ff%3D1920x470%26format%3Dauto&w=1920&q=75",
+];
 
 export const LOAD__PRODUCTS = "LOAD__PRODUCTS";
 export const LOAD__WISHLIST = "LOAD__WISHLIST";

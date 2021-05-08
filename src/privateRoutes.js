@@ -1,21 +1,10 @@
-// import {} from
-
 import { Redirect, Route } from "react-router";
-import { useMainContext } from "./context/main-context";
-
-// export const PrivateRoute = ({ path, ...props }) => {
-// 	const { authState } = useAuth();
-// 	return authState.isLoggedIn ? (
-// 		<Route path={path} {...props} />
-// 	) : (
-// 		<Navigate state={{ from: path }} replace to="/login" />
-// 	);
-// };
+import { useECommerceContext } from "./context";
 
 export const PrivateRoute = ({ path, ...props }) => {
 	const {
 		state: { isAuthenticated },
-	} = useMainContext();
+	} = useECommerceContext();
 	return isAuthenticated ? (
 		<Route path={path} {...props} />
 	) : (

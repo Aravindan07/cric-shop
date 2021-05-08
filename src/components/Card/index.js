@@ -1,20 +1,24 @@
-import { useMainContext } from "../../context/main-context";
+import { useECommerceContext } from "../../context";
 import { ReactComponent as WishListIcon } from "../../icons/card-wish-icon.svg";
 import { ADD__OR__REMOVE__ITEM__FROM__WISHLIST } from "../../constants";
-import "./styles.css";
+import "./card.css";
 import { useHistory } from "react-router";
 
 function Card({ item }) {
 	const history = useHistory();
 	const {
 		state: { isAuthenticated },
-	} = useMainContext();
+		addOrRemoveItemFromWishListOrCartlist,
+	} = useECommerceContext();
 
-	const { addOrRemoveItemFromWishList } = useMainContext();
 	const setWishListed = (event) => {
 		event.stopPropagation();
 		if (isAuthenticated) {
-			return addOrRemoveItemFromWishList(item._id, ADD__OR__REMOVE__ITEM__FROM__WISHLIST);
+			return addOrRemoveItemFromWishListOrCartlist(
+				item._id,
+				ADD__OR__REMOVE__ITEM__FROM__WISHLIST,
+				"wishlist"
+			);
 		}
 		return history.push("/my-account");
 	};
@@ -24,7 +28,6 @@ function Card({ item }) {
 		if (item.inStock) {
 			return history.push(`/products/${item._id}`);
 		}
-		return null;
 	};
 
 	return (

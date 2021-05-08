@@ -1,9 +1,12 @@
 import React from "react";
 import Card from "../../components/Card";
-import { useMainContext } from "../../context/main-context";
+import { useECommerceContext } from "../../context";
+import { useDocumentTitle } from "../../utils/useDocumentTitle";
 
 function Wishlist() {
-	const { state } = useMainContext();
+	const { state } = useECommerceContext();
+
+	useDocumentTitle("WishList | CricShop");
 
 	return (
 		<div className="padding-t8 padding-b8 padding-l8 padding-r8">
@@ -11,7 +14,7 @@ function Wishlist() {
 			{state.wishList.length > 0 ? (
 				<p className="text-center mt-8">
 					Wishlist contains{" "}
-					<span className="fw-600">{state.wishList && state.wishList.length}</span> items.{" "}
+					<span className="fw-600">{state.wishList && state.wishList.length}</span> items.
 				</p>
 			) : (
 				<p className="text-center">Your wishlist is empty!</p>

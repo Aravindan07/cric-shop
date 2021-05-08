@@ -4,17 +4,16 @@ import { ReactComponent as CartIcon } from "../../icons/cart-icon.svg";
 import { ReactComponent as HeartIcon } from "../../icons/heart-icon.svg";
 import { ReactComponent as Logo } from "../../icons/cricket.svg";
 import SearchIcon from "../../icons/search.svg";
-import { useMainContext } from "../../context/main-context";
-import "./styles.css";
+import { useECommerceContext } from "../../context";
+import "./navbar.css";
 
 function Navbar() {
-	const { state } = useMainContext();
+	const { state } = useECommerceContext();
 	return (
 		<div>
 			<nav className="navbar--with-search">
 				<div className="flex-row-space-between">
 					<div className="nav-logo-container">
-						{/* <MenuIcon className="menu-icon-dimensions mb-2 mr-8 c-pointer" /> */}
 						<Logo className="mr-8" />
 						<Link className="navbar__title ls-1 mb-5" to="/">
 							cric shop

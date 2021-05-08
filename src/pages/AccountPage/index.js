@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { SET__LOGIN, SET__LOGOUT, SHOW__MESSAGE } from "../../constants";
-import { useMainContext } from "../../context/main-context";
+import { useECommerceContext } from "../../context";
 import { toast } from "react-toastify";
 import { Link, useHistory, useLocation } from "react-router-dom";
+import { useDocumentTitle } from "../../utils/useDocumentTitle";
 
 function AccountPage() {
-	const { dispatch, state } = useMainContext();
+	const { dispatch, state } = useECommerceContext();
+	useDocumentTitle("My Account | CricShop");
 	let history = useHistory();
 	let location = useLocation();
 	const initialValues = {

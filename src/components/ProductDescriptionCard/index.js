@@ -7,9 +7,9 @@ import {
 	ADD__ITEM__TO__CART,
 	REMOVE__ITEM__FROM__CART,
 } from "../../constants";
-import { useMainContext } from "../../context/main-context";
+import { useECommerceContext } from "../../context";
 import { ReactComponent as WishListIcon } from "../../icons/card-wish-icon.svg";
-import "./styles.css";
+import "./productDescriptionCard.css";
 
 function ProductDescriptionCard({ productToShow }) {
 	const history = useHistory();
@@ -17,31 +17,34 @@ function ProductDescriptionCard({ productToShow }) {
 
 	const {
 		state: { isAuthenticated },
-		addOrRemoveItemFromWishList,
 		incOrDecQuantity,
-		addOrRemoveItemFromCartList,
-	} = useMainContext();
+		addOrRemoveItemFromWishListOrCartlist,
+	} = useECommerceContext();
 
 	const setWishListed = (event) => {
 		event.stopPropagation();
 		if (isAuthenticated) {
-			return addOrRemoveItemFromWishList(
+			return addOrRemoveItemFromWishListOrCartlist(
 				productToShow._id,
-				ADD__OR__REMOVE__ITEM__FROM__WISHLIST
+				ADD__OR__REMOVE__ITEM__FROM__WISHLIST,
+				"wishlist"
 			);
 		}
 		return history.push("/my-account");
 	};
 
 	const incOrDecQuantityHandler = (item, operation) => {
-		if (item.quantityAddedToCart === 1 && operation === "decrement") {
-			return null;
-		}
-		if (operation === "increment") {
-			return incOrDecQuantity(item._id, INCREMENT__QUANTITY, operation);
-		}
-		if (operation === "decrement") {
-			return incOrDecQuantity(item._id, DECREMENT__QUANTITY, operation);
+		switch (operation) {
+			case "decrement":
+				if (item.quantityAddedToCart === 1) {
+					return null;
+				}
+				return incOrDecQuantity(item._id, DECREMENT__QUANTITY, operation);
+			case "increment":
+				return incOrDecQuantity(item._id, INCREMENT__QUANTITY, operation);
+
+			default:
+				return null;
 		}
 	};
 
@@ -50,13 +53,21 @@ function ProductDescriptionCard({ productToShow }) {
 			return history.push("/cart");
 		}
 		if (isAuthenticated) {
-			return addOrRemoveItemFromCartList(productToShow._id, ADD__ITEM__TO__CART, "add");
+			return addOrRemoveItemFromWishListOrCartlist(
+				productToShow._id,
+				ADD__ITEM__TO__CART,
+				"cartlist"
+			);
 		}
 		return history.push("/my-account");
 	};
 
 	const removeFromCartHandler = (item) => {
-		return addOrRemoveItemFromCartList(item._id, REMOVE__ITEM__FROM__CART, "remove");
+		return addOrRemoveItemFromWishListOrCartlist(
+			item._id,
+			REMOVE__ITEM__FROM__CART,
+			"cartlist"
+		);
 	};
 
 	return (
