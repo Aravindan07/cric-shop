@@ -1,9 +1,6 @@
 import * as Actions from "../constants";
 
 export function mainReducer(state, { type, payload }) {
-	const checkItemExists = (id, list) => {
-		return list.find((el) => el._id === id);
-	};
 	switch (type) {
 		case Actions.LOAD__PRODUCTS:
 			return {
@@ -30,75 +27,37 @@ export function mainReducer(state, { type, payload }) {
 				...state,
 				isLoading: !state.isLoading,
 			};
-		case Actions.ADD__OR__REMOVE__ITEM__FROM__WISHLIST:
-			if (checkItemExists(payload._id, state.wishList)) {
-				return {
-					...state,
-					wishList: state.wishList.filter((el) => el._id !== payload._id),
-					cartList: state.cartList.map((item) =>
-						item._id === payload._id ? { ...item, wishListed: false } : item
-					),
-					products: state.products.map((item) =>
-						item._id === payload._id ? { ...item, wishListed: false } : item
-					),
-					categories: state.categories.map((item) => {
-						return {
-							...item,
-							products: item.products.map((el) =>
-								el._id === payload._id ? { ...el, wishListed: false } : el
-							),
-						};
-					}),
-				};
-			}
+
+		case Actions.ADD__ITEM__TO__WISHLIST:
 			return {
 				...state,
 				wishList: state.wishList.concat(payload),
-				cartList: state.cartList.map((item) =>
-					item._id === payload._id ? { ...item, wishListed: true } : item
-				),
-				products: state.products.map((item) =>
-					item._id === payload._id ? { ...item, wishListed: true } : item
-				),
-				categories: state.categories.map((item) => {
-					return {
-						...item,
-						products: item.products.map((el) =>
-							el._id === payload._id ? { ...el, wishListed: true } : el
-						),
-					};
-				}),
+			};
+
+		case Actions.REMOVE__ITEM__FROM__WISHLIST:
+			return {
+				...state,
+				wishList: state.wishList.filter((el) => el._id !== payload._id),
 			};
 
 		case Actions.ADD__ITEM__TO__CART:
 			return {
 				...state,
 				cartList: state.cartList.concat(payload),
-				products: state.products.map((item) =>
-					item._id === payload._id ? { ...item, cartListed: true } : item
-				),
 			};
 
 		case Actions.REMOVE__ITEM__FROM__CART:
 			return {
 				...state,
 				cartList: state.cartList.filter((el) => el._id !== payload._id),
-				products: state.products.map((item) =>
-					item._id === payload._id ? { ...item, cartListed: false } : item
-				),
 			};
 
 		case Actions.INCREMENT__QUANTITY:
 			return {
 				...state,
 				cartList: state.cartList.map((item) =>
-					item._id === payload._id
-						? { ...item, quantityAddedToCart: item.quantityAddedToCart + 1 }
-						: item
-				),
-				products: state.products.map((item) =>
-					item._id === payload._id
-						? { ...item, quantityAddedToCart: item.quantityAddedToCart + 1 }
+					item._id === payload.item._id
+						? { ...item, quantity: payload.item.quantity }
 						: item
 				),
 			};
@@ -107,13 +66,8 @@ export function mainReducer(state, { type, payload }) {
 			return {
 				...state,
 				cartList: state.cartList.map((item) =>
-					item._id === payload._id
-						? { ...item, quantityAddedToCart: item.quantityAddedToCart - 1 }
-						: item
-				),
-				products: state.products.map((item) =>
-					item._id === payload._id
-						? { ...item, quantityAddedToCart: item.quantityAddedToCart - 1 }
+					item._id === payload.item._id
+						? { ...item, quantity: payload.item.quantity }
 						: item
 				),
 			};

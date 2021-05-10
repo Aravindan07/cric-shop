@@ -1,24 +1,42 @@
 import { useECommerceContext } from "../../context";
 import { ReactComponent as WishListIcon } from "../../icons/card-wish-icon.svg";
-import { ADD__OR__REMOVE__ITEM__FROM__WISHLIST } from "../../constants";
+import { ADD__ITEM__TO__WISHLIST, REMOVE__ITEM__FROM__WISHLIST } from "../../constants";
 import "./card.css";
 import { useHistory } from "react-router";
 
 function Card({ item }) {
 	const history = useHistory();
 	const {
-		state: { isAuthenticated },
-		addOrRemoveItemFromWishListOrCartlist,
+		state: { isAuthenticated, wishList },
+		removeItemFromWishlist,
+		addItemToWishlist,
 	} = useECommerceContext();
+
+	const wishlistItems = wishList.filter((el) => el.product._id === item._id);
+	const checkWishlist = (itemId) => wishList.find((el) => el.product._id === itemId);
+	const extractId = (itemId) => {
+		let finded = wishList.find((el) => el.product._id === itemId);
+		return finded._id;
+	};
+	const fillColorAssigner = () => {
+		let color = "#9b9999";
+		wishlistItems.forEach((el) => {
+			if (el.product._id === item._id) {
+				color = "var(--complementary-color)";
+			} else {
+				color = "#9b9999";
+			}
+		});
+		return color;
+	};
 
 	const setWishListed = (event) => {
 		event.stopPropagation();
-		if (isAuthenticated) {
-			return addOrRemoveItemFromWishListOrCartlist(
-				item._id,
-				ADD__OR__REMOVE__ITEM__FROM__WISHLIST,
-				"wishlist"
-			);
+		if (isAuthenticated && !checkWishlist(item._id)) {
+			return addItemToWishlist(item._id, ADD__ITEM__TO__WISHLIST);
+		}
+		if (isAuthenticated && checkWishlist(item._id)) {
+			return removeItemFromWishlist(extractId(item._id), REMOVE__ITEM__FROM__WISHLIST);
 		}
 		return history.push("/my-account");
 	};
@@ -44,11 +62,7 @@ function Card({ item }) {
 				<div className="card__body">
 					<div className="wishlist-icon-container">
 						<WishListIcon
-							fill={
-								item.wishListed && isAuthenticated
-									? "var(--complementary-color)"
-									: "#9b9999"
-							}
+							fill={isAuthenticated ? fillColorAssigner() : "#9b9999"}
 							onClick={(e) => setWishListed(e)}
 						/>
 					</div>

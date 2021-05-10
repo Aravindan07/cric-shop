@@ -8,7 +8,7 @@ function ProductDescription() {
 	const { state } = useECommerceContext();
 	const { productId } = useParams();
 	const productToShow = state.products.find((el) => el._id === productId);
-	useDocumentTitle(`${productToShow.name} | CricShop`);
+	useDocumentTitle(`${productToShow && productToShow.name} | CricShop`);
 
 	return (
 		<div>

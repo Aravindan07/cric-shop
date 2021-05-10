@@ -53,23 +53,111 @@ export default function ECommerceContextProvider({ children }) {
 		}
 	};
 
-	const addOrRemoveItemFromWishListOrCartlist = async (itemId, type, list) => {
+	const addItemToWishlist = async (itemId, type) => {
 		try {
 			dispatch(
 				{ type: Actions.SHOW__MESSAGE },
-				toast.info(
-					`${list === "wishlist" ? "Updating Wishlist..." : "Updating Cartlist"}`,
-					{ hideProgressBar: true, autoClose: 2000 }
-				)
+				toast.info(`Updating Wishlist...`, { hideProgressBar: true, autoClose: 2000 })
 			);
-			const { data } = await axios.post(
-				`${REACT_APP_BACKEND_URL}/${
-					list === "wishlist" ? "wishlist" : "cartlist"
-				}/${itemId}`,
+			const { data } = await axios.post(`${REACT_APP_BACKEND_URL}/wishlist/${itemId}`, {
+				product: itemId,
+			});
+			dispatch({ type: type, payload: data.item });
+			dispatch({ type: Actions.REMOVE__MESSAGE });
+			dispatch(
+				{ type: Actions.SHOW__MESSAGE, payload: data.message },
+				data.message.split(" ")[1].toLowerCase() === "removed"
+					? toast.info(data.message, {
+							style: { backgroundColor: "#dcdcdc", color: "var(--font-color)" },
+							autoClose: 2000,
+							hideProgressBar: true,
+					  })
+					: toast.success(data.message, {
+							style: { backgroundColor: "#15b996" },
+							autoClose: 2000,
+							hideProgressBar: true,
+					  })
+			);
+			return dispatch({ type: Actions.REMOVE__MESSAGE });
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const removeItemFromWishlist = async (itemId, type) => {
+		try {
+			dispatch(
+				{ type: Actions.SHOW__MESSAGE },
+				toast.info(`Updating Wishlist...`, { hideProgressBar: true, autoClose: 2000 })
+			);
+			const { data } = await axios.put(
+				`${REACT_APP_BACKEND_URL}/${"wishlist"}/${itemId}/remove`,
 				{
-					productId: itemId,
+					id: itemId,
 				}
 			);
+			dispatch({ type: type, payload: data.item });
+			dispatch({ type: Actions.REMOVE__MESSAGE });
+			dispatch(
+				{ type: Actions.SHOW__MESSAGE, payload: data.message },
+				data.message.split(" ")[1].toLowerCase() === "removed"
+					? toast.info(data.message, {
+							style: { backgroundColor: "#dcdcdc", color: "var(--font-color)" },
+							autoClose: 2000,
+							hideProgressBar: true,
+					  })
+					: toast.success(data.message, {
+							style: { backgroundColor: "#15b996" },
+							autoClose: 2000,
+							hideProgressBar: true,
+					  })
+			);
+			return dispatch({ type: Actions.REMOVE__MESSAGE });
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const addItemToCartlist = async (itemId, type) => {
+		try {
+			dispatch(
+				{ type: Actions.SHOW__MESSAGE },
+				toast.info(`Updating Cartlist...`, { hideProgressBar: true, autoClose: 2000 })
+			);
+			const { data } = await axios.post(`${REACT_APP_BACKEND_URL}/cartlist/${itemId}`, {
+				product: itemId,
+			});
+			dispatch({ type: type, payload: data.item });
+			dispatch({ type: Actions.REMOVE__MESSAGE });
+			dispatch(
+				{ type: Actions.SHOW__MESSAGE, payload: data.message },
+				data.message.split(" ")[1].toLowerCase() === "removed"
+					? toast.info(data.message, {
+							style: { backgroundColor: "#dcdcdc", color: "var(--font-color)" },
+							autoClose: 2000,
+							hideProgressBar: true,
+					  })
+					: toast.success(data.message, {
+							style: { backgroundColor: "#15b996" },
+							autoClose: 2000,
+							hideProgressBar: true,
+					  })
+			);
+			return dispatch({ type: Actions.REMOVE__MESSAGE });
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const removeItemFromCartlist = async (itemId, type) => {
+		try {
+			dispatch(
+				{ type: Actions.SHOW__MESSAGE },
+				toast.info(`Updating Cartlist...`, { hideProgressBar: true, autoClose: 2000 })
+			);
+			const { data } = await axios.put(`${REACT_APP_BACKEND_URL}/cartlist/${itemId}/remove`, {
+				id: itemId,
+			});
 			dispatch({ type: type, payload: data.item });
 			dispatch({ type: Actions.REMOVE__MESSAGE });
 			dispatch(
@@ -101,10 +189,10 @@ export default function ECommerceContextProvider({ children }) {
 			const { data } = await axios.put(
 				`${REACT_APP_BACKEND_URL}/cartlist/${itemId}/quantity?type=${operation}`,
 				{
-					productId: itemId,
+					id: itemId,
 				}
 			);
-			dispatch({ type: type, payload: data.item });
+			dispatch({ type: type, payload: data });
 			dispatch({ type: Actions.REMOVE__MESSAGE });
 			dispatch(
 				{ type: Actions.SHOW__MESSAGE, payload: data.message },
@@ -126,7 +214,10 @@ export default function ECommerceContextProvider({ children }) {
 				state,
 				dispatch,
 				loadEssentials,
-				addOrRemoveItemFromWishListOrCartlist,
+				addItemToWishlist,
+				removeItemFromWishlist,
+				addItemToCartlist,
+				removeItemFromCartlist,
 				incOrDecQuantity,
 			}}
 		>

@@ -20,8 +20,8 @@ function Wishlist() {
 				<p className="text-center">Your wishlist is empty!</p>
 			)}
 			<div className="flex-row-center">
-				{state.wishList.map((item) => (
-					<Card key={item._id} item={item} />
+				{state.wishList.map(({ product }) => (
+					<Card key={product._id} item={product} />
 				))}
 			</div>
 		</div>

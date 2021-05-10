@@ -8,9 +8,10 @@ export default function PlaceOrder() {
 	} = useECommerceContext();
 
 	const totalPrice = (accumulator, currentValue) =>
-		accumulator + currentValue.quantityAddedToCart * currentValue.price;
+		accumulator + currentValue.quantity * currentValue.product.price;
+
 	const totalQuantity = (accumulator, currentValue) =>
-		accumulator + Number(currentValue.quantityAddedToCart);
+		accumulator + Number(currentValue.quantity);
 
 	const notify = () =>
 		toast.success("Order placed Successfully!", {
