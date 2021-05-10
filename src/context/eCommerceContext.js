@@ -69,12 +69,12 @@ export default function ECommerceContextProvider({ children }) {
 				data.message.split(" ")[1].toLowerCase() === "removed"
 					? toast.info(data.message, {
 							style: { backgroundColor: "#dcdcdc", color: "var(--font-color)" },
-							autoClose: 2000,
+							autoClose: 1500,
 							hideProgressBar: true,
 					  })
 					: toast.success(data.message, {
 							style: { backgroundColor: "#15b996" },
-							autoClose: 2000,
+							autoClose: 1500,
 							hideProgressBar: true,
 					  })
 			);
@@ -88,7 +88,7 @@ export default function ECommerceContextProvider({ children }) {
 		try {
 			dispatch(
 				{ type: Actions.SHOW__MESSAGE },
-				toast.info(`Updating Wishlist...`, { hideProgressBar: true, autoClose: 2000 })
+				toast.info(`Updating Wishlist...`, { hideProgressBar: true, autoClose: 1500 })
 			);
 			const { data } = await axios.put(
 				`${REACT_APP_BACKEND_URL}/${"wishlist"}/${itemId}/remove`,
@@ -103,12 +103,12 @@ export default function ECommerceContextProvider({ children }) {
 				data.message.split(" ")[1].toLowerCase() === "removed"
 					? toast.info(data.message, {
 							style: { backgroundColor: "#dcdcdc", color: "var(--font-color)" },
-							autoClose: 2000,
+							autoClose: 1500,
 							hideProgressBar: true,
 					  })
 					: toast.success(data.message, {
 							style: { backgroundColor: "#15b996" },
-							autoClose: 2000,
+							autoClose: 1500,
 							hideProgressBar: true,
 					  })
 			);
@@ -122,7 +122,7 @@ export default function ECommerceContextProvider({ children }) {
 		try {
 			dispatch(
 				{ type: Actions.SHOW__MESSAGE },
-				toast.info(`Updating Cartlist...`, { hideProgressBar: true, autoClose: 2000 })
+				toast.info(`Updating Cartlist...`, { hideProgressBar: true, autoClose: 1500 })
 			);
 			const { data } = await axios.post(`${REACT_APP_BACKEND_URL}/cartlist/${itemId}`, {
 				product: itemId,
@@ -134,12 +134,12 @@ export default function ECommerceContextProvider({ children }) {
 				data.message.split(" ")[1].toLowerCase() === "removed"
 					? toast.info(data.message, {
 							style: { backgroundColor: "#dcdcdc", color: "var(--font-color)" },
-							autoClose: 2000,
+							autoClose: 1500,
 							hideProgressBar: true,
 					  })
 					: toast.success(data.message, {
 							style: { backgroundColor: "#15b996" },
-							autoClose: 2000,
+							autoClose: 1500,
 							hideProgressBar: true,
 					  })
 			);
@@ -165,12 +165,12 @@ export default function ECommerceContextProvider({ children }) {
 				data.message.split(" ")[1].toLowerCase() === "removed"
 					? toast.info(data.message, {
 							style: { backgroundColor: "#dcdcdc", color: "var(--font-color)" },
-							autoClose: 2000,
+							autoClose: 1500,
 							hideProgressBar: true,
 					  })
 					: toast.success(data.message, {
 							style: { backgroundColor: "#15b996" },
-							autoClose: 2000,
+							autoClose: 1500,
 							hideProgressBar: true,
 					  })
 			);
@@ -184,7 +184,7 @@ export default function ECommerceContextProvider({ children }) {
 		try {
 			dispatch(
 				{ type: Actions.SHOW__MESSAGE },
-				toast.info("Updating Quantity...", { hideProgressBar: true, autoClose: 2000 })
+				toast.info("Updating Quantity...", { hideProgressBar: true, autoClose: 1500 })
 			);
 			const { data } = await axios.put(
 				`${REACT_APP_BACKEND_URL}/cartlist/${itemId}/quantity?type=${operation}`,
@@ -198,7 +198,7 @@ export default function ECommerceContextProvider({ children }) {
 				{ type: Actions.SHOW__MESSAGE, payload: data.message },
 				toast.success("Quantity Updated!", {
 					style: { backgroundColor: "#15b996" },
-					autoClose: 2000,
+					autoClose: 1500,
 					hideProgressBar: true,
 				})
 			);
