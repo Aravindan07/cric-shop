@@ -22,17 +22,25 @@ function Products() {
 	const sortedData = getSortedData(products, sortBy);
 	const filteredData = getFilteredData(includeOutOfStock, showFastDeliveryOnly, sortedData);
 
+	const sortedDataAfterSearch = getSortedData(searchItems, sortBy);
+	const filteredDataAfterSearch = getFilteredData(
+		includeOutOfStock,
+		showFastDeliveryOnly,
+		sortedDataAfterSearch
+	);
+
 	useEffect(() => {
-		let isMount = true;
-		const searchedData = () =>
-			filteredData.length > 0 &&
+		if (searchText === "") {
+			return setSearchedItems([]);
+		}
+		const searchedData =
+			filteredData &&
 			filteredData.filter((data) =>
 				data.name.toLowerCase().includes(searchText.toLowerCase())
 			);
-		if (isMount) {
-			setSearchedItems(searchedData);
-		}
-		return () => (isMount = false);
+		setSearchedItems(searchedData);
+
+		return () => setSearchedItems([]);
 	}, [searchText]);
 
 	return (
@@ -61,10 +69,21 @@ function Products() {
 				))}
 			</div>
 			<div className="padding-r8 padding-l8 mt-16 flex-row-center">
-				{searchItems.length > 0
-					? searchItems.map((item) => <Card key={item._id} item={item} />)
-					: filteredData?.map((item) => <Card key={item._id} item={item} />)}
+				{!searchItems || searchItems.length === 0 ? (
+					filteredData?.map((item) => <Card key={item._id} item={item} />)
+				) : (
+					<>
+						{filteredDataAfterSearch.length > 0 &&
+							filteredDataAfterSearch.map((item) => (
+								<Card key={item._id} item={item} />
+							))}
+					</>
+				)}
 			</div>
+			{/* <div className="padding-r8 padding-l8 mt-16 flex-row-center">
+				{searchItems.length > 0 &&
+					searchItems.map((item) => <Card key={item._id} item={item} />)}
+			</div> */}
 		</>
 	);
 }
