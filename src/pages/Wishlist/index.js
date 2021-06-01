@@ -9,22 +9,28 @@ function Wishlist() {
 	useDocumentTitle("WishList | CricShop");
 
 	return (
-		<div className="padding-t8 padding-b8 padding-l8 padding-r8">
-			{state.wishList.length > 0 && <h2 className="text-center">My Wishlist</h2>}
-			{state.wishList.length > 0 ? (
-				<p className="text-center mt-8">
-					Wishlist contains{" "}
-					<span className="fw-600">{state.wishList && state.wishList.length}</span> items.
-				</p>
-			) : (
-				<p className="text-center">Your wishlist is empty!</p>
-			)}
-			<div className="flex-row-center">
-				{state.wishList.map(({ product }) => (
-					<Card key={product._id} item={product} />
-				))}
+		<>
+			<div className="padding-t8 padding-b8 padding-l8 padding-r8">
+				{state.wishList?.products?.length > 0 && (
+					<h2 className="text-center">My Wishlist</h2>
+				)}
+				{state.wishList?.products?.length > 0 ? (
+					<p className="text-center mt-8">
+						Wishlist contains
+						<span className="fw-600 mr-5 ml-5">{state.wishList?.products?.length}</span>
+						items.
+					</p>
+				) : (
+					<p className="text-center">Your wishlist is empty!</p>
+				)}
+
+				<div className="flex-row-center">
+					{state.wishList?.products?.map((product) => (
+						<Card key={product._id} item={product} />
+					))}
+				</div>
 			</div>
-		</div>
+		</>
 	);
 }
 

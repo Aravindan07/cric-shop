@@ -1,11 +1,9 @@
 import { Redirect, Route } from "react-router";
-import { useECommerceContext } from "./context";
 
 export const PrivateRoute = ({ path, ...props }) => {
-	const {
-		state: { isAuthenticated },
-	} = useECommerceContext();
-	return isAuthenticated ? (
+	const userAuthenticated = localStorage.getItem("isAuthenticated");
+
+	return userAuthenticated ? (
 		<Route path={path} {...props} />
 	) : (
 		<Redirect

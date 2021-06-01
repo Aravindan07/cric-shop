@@ -3,15 +3,37 @@ import Card from "../../components/Card";
 import { useECommerceContext } from "../../context";
 import { getSortedData, getFilteredData } from "../../utils/Filter";
 import FilterComponent from "../../components/FilterComponent";
-import "./products.css";
 import { NavLink } from "react-router-dom";
+import "./products.css";
+import { useEffect, useState } from "react";
 
 function Products() {
 	const {
-		state: { showFastDeliveryOnly, sortBy, includeOutOfStock, products, categories },
+		state: {
+			showFastDeliveryOnly,
+			sortBy,
+			includeOutOfStock,
+			products,
+			categories,
+			searchText,
+		},
 	} = useECommerceContext();
+	const [searchItems, setSearchedItems] = useState([]);
 	const sortedData = getSortedData(products, sortBy);
 	const filteredData = getFilteredData(includeOutOfStock, showFastDeliveryOnly, sortedData);
+
+	useEffect(() => {
+		let isMount = true;
+		const searchedData = () =>
+			filteredData.length > 0 &&
+			filteredData.filter((data) =>
+				data.name.toLowerCase().includes(searchText.toLowerCase())
+			);
+		if (isMount) {
+			setSearchedItems(searchedData);
+		}
+		return () => (isMount = false);
+	}, [searchText]);
 
 	return (
 		<>
@@ -39,7 +61,9 @@ function Products() {
 				))}
 			</div>
 			<div className="padding-r8 padding-l8 mt-16 flex-row-center">
-				{filteredData && filteredData.map((item) => <Card key={item._id} item={item} />)}
+				{searchItems.length > 0
+					? searchItems.map((item) => <Card key={item._id} item={item} />)
+					: filteredData?.map((item) => <Card key={item._id} item={item} />)}
 			</div>
 		</>
 	);

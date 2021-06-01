@@ -1,14 +1,7 @@
 import { useHistory, useParams } from "react-router";
-import {
-	DECREMENT__QUANTITY,
-	INCREMENT__QUANTITY,
-	ADD__ITEM__TO__CART,
-	REMOVE__ITEM__FROM__CART,
-	ADD__ITEM__TO__WISHLIST,
-	REMOVE__ITEM__FROM__WISHLIST,
-} from "../../constants";
 import { useECommerceContext } from "../../context";
 import { ReactComponent as WishListIcon } from "../../icons/card-wish-icon.svg";
+import { useHelperMethods } from "../../utils/helper";
 import "./productDescriptionCard.css";
 
 function ProductDescriptionCard({ productToShow }) {
@@ -16,44 +9,38 @@ function ProductDescriptionCard({ productToShow }) {
 	const { productId } = useParams();
 
 	const {
-		state: { isAuthenticated, wishList, cartList },
+		state: { isAuthenticated, cartList, user },
 		incOrDecQuantity,
-		addItemToCartlist,
-		removeItemFromCartlist,
-		addItemToWishlist,
-		removeItemFromWishlist,
+		addOrRemoveItemFromWishlist,
+		addOrRemoveItemFromCartlist,
 	} = useECommerceContext();
 
-	const extractId = () => {
-		let finded = wishList.find((el) =>
-			el.product._id === productToShow.product ? productToShow.product._id : productToShow._id
-		);
-		return finded._id;
-	};
-	const wishListed = (item) => wishList.filter((el) => el.product._id === item._id);
-	const fillColorAssigner = (item) => {
-		if (wishListed(item).length > 0) {
-			return "var(--complementary-color)";
-		}
-		return "#9b9999";
-	};
+	const { fillColorAssigner, checkWishlist } = useHelperMethods(
+		productId || (productToShow.product && productToShow.product?._id) || productToShow?._id
+	);
 
-	const setWishListed = (event, item) => {
+	const setWishListed = (event) => {
 		event.stopPropagation();
-		if (isAuthenticated && wishListed(item).length === 0) {
-			return addItemToWishlist(
+		if (isAuthenticated && !checkWishlist()) {
+			return addOrRemoveItemFromWishlist(
+				user._id,
 				productToShow.product ? productToShow.product._id : productToShow._id,
-				ADD__ITEM__TO__WISHLIST
+				"add"
 			);
 		}
-		if (isAuthenticated && wishListed(item).length > 0) {
-			return removeItemFromWishlist(extractId(), REMOVE__ITEM__FROM__WISHLIST);
+		if (isAuthenticated && checkWishlist()) {
+			return addOrRemoveItemFromWishlist(
+				user._id,
+				productToShow.product ? productToShow.product._id : productToShow._id,
+				"remove"
+			);
 		}
 		return history.push("/my-account");
 	};
 
 	const cartItems = (item) =>
-		cartList.length > 0 && cartList.filter((el) => el.product._id === item._id);
+		cartList.products.length > 0 &&
+		cartList.products.filter((el) => el.product._id === item._id);
 
 	const incOrDecQuantityHandler = (item, operation) => {
 		switch (operation) {
@@ -61,9 +48,9 @@ function ProductDescriptionCard({ productToShow }) {
 				if (cartItems(item)[0].quantity === 1) {
 					return null;
 				}
-				return incOrDecQuantity(cartItems(item)[0]._id, DECREMENT__QUANTITY, operation);
+				return incOrDecQuantity(user._id, cartList._id, productToShow._id, operation);
 			case "increment":
-				return incOrDecQuantity(cartItems(item)[0]._id, INCREMENT__QUANTITY, operation);
+				return incOrDecQuantity(user._id, cartList._id, productToShow._id, operation);
 
 			default:
 				return null;
@@ -78,16 +65,13 @@ function ProductDescriptionCard({ productToShow }) {
 			(isAuthenticated && cartItems(item).length === 0) ||
 			(isAuthenticated && cartItems(item) === false)
 		) {
-			return addItemToCartlist(
+			return addOrRemoveItemFromCartlist(
+				user._id,
 				productToShow.product ? productToShow.product._id : productToShow._id,
-				ADD__ITEM__TO__CART
+				"add"
 			);
 		}
 		return history.push("/my-account");
-	};
-
-	const removeFromCartHandler = (item) => {
-		return removeItemFromCartlist(item._id, REMOVE__ITEM__FROM__CART);
 	};
 
 	const checkDelivery = () => {
@@ -103,21 +87,8 @@ function ProductDescriptionCard({ productToShow }) {
 				<div className="product-container">
 					<div className="image-wishlist-icon-container">
 						<WishListIcon
-							fill={
-								isAuthenticated
-									? fillColorAssigner(
-											productToShow.product
-												? productToShow.product
-												: productToShow
-									  )
-									: "#9b9999"
-							}
-							onClick={(e) =>
-								setWishListed(
-									e,
-									productToShow.product ? productToShow.product : productToShow
-								)
-							}
+							fill={isAuthenticated ? fillColorAssigner() : "#9b9999"}
+							onClick={(e) => setWishListed(e)}
 						/>
 					</div>
 					<img
@@ -208,15 +179,7 @@ function ProductDescriptionCard({ productToShow }) {
 									>
 										-
 									</button>
-									<p className="text-center mb-5">
-										{
-											cartItems(
-												productToShow.product
-													? productToShow.product
-													: productToShow
-											)[0].quantity
-										}
-									</p>
+									<p className="text-center mb-5">{productToShow.quantity}</p>
 									<button
 										className="button button--primary ml-16"
 										onClick={() =>
@@ -256,7 +219,13 @@ function ProductDescriptionCard({ productToShow }) {
 							{!productId && (
 								<button
 									className="button button--error"
-									onClick={() => removeFromCartHandler(productToShow)}
+									onClick={() =>
+										addOrRemoveItemFromCartlist(
+											user._id,
+											productToShow._id,
+											"remove"
+										)
+									}
 								>
 									Remove
 								</button>

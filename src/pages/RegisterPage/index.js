@@ -1,24 +1,26 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { SET__LOGOUT } from "../../constants";
 import { useECommerceContext } from "../../context";
-import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
 import { useDocumentTitle } from "../../utils/useDocumentTitle";
-import "./styles.css";
 
-function AccountPage() {
-	const { dispatch, state, logInUser } = useECommerceContext();
-	useDocumentTitle("My Account | CricShop");
+export default function RegisterPage() {
+	useDocumentTitle("Account | CricTube");
 	const initialValues = {
+		name: "",
 		email: "",
 		password: "",
 	};
 	const initialActive = {
+		isNameActive: false,
 		isEmailActive: false,
 		isPasswordActive: false,
 	};
-	const [{ email, password }, setState] = useState(initialValues);
-	const [{ isEmailActive, isPasswordActive }, setIsActive] = useState(initialActive);
+	const [{ name, email, password }, setState] = useState(initialValues);
+	const { state, dispatch, registerUser } = useECommerceContext();
+	const [{ isNameActive, isEmailActive, isPasswordActive }, setIsActive] =
+		useState(initialActive);
 
 	const onChangeHandler = (event, sentName) => {
 		const name = event.target.name;
@@ -33,7 +35,14 @@ function AccountPage() {
 	};
 
 	const signInClickHandler = () => {
-		return logInUser(email, password);
+		if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
+			return toast.error("Invalid Email address", {
+				style: { backgroundColor: "#b91538" },
+				autoClose: 2000,
+				hideProgressBar: true,
+			});
+		}
+		return registerUser(name, email, password);
 	};
 
 	const logoutClickHandler = () => {
@@ -44,27 +53,41 @@ function AccountPage() {
 			hideProgressBar: true,
 		});
 	};
-
 	return (
 		<div className="flex-col-center">
 			{state.isAuthenticated ? (
 				<>
-					<h3 className="text-center">
-						We hope you found your product. Come Back with more money to buy more!
-					</h3>
+					<h2 className="mt-16">
+						Thanks for using our application. We hope you like us!
+					</h2>
 					<button
-						className="button button--error font-color--white mt-32 mb-32"
+						className="button button--error font-color--white mt-16 mb-16"
 						onClick={logoutClickHandler}
 					>
 						Logout
 					</button>
-					<Link to="/" className="color-success ls-1 fw-600 link-text">
-						Home
-					</Link>
+					<Link to="/">Home</Link>
 				</>
 			) : (
 				<>
-					<h2>Login to your account</h2>
+					<h2 className="mt-16">Create your account</h2>
+					<div className="input-wrap mt-16">
+						<label
+							htmlFor="name"
+							className={`${isNameActive ? "label transformed-label" : "label"}`}
+						>
+							Name
+						</label>
+						<input
+							type="text"
+							id="name"
+							className="input mt-16 mb-16"
+							name="name"
+							value={name}
+							onChange={(e) => onChangeHandler(e, "isNameActive")}
+							required
+						/>
+					</div>
 					<div className="input-wrap mt-16">
 						<label
 							htmlFor="email"
@@ -82,8 +105,7 @@ function AccountPage() {
 							required
 						/>
 					</div>
-
-					<div className="input-wrap mt-16">
+					<div className="input-wrap">
 						<label
 							htmlFor="password"
 							className={`${isPasswordActive ? "label transformed-label" : "label"}`}
@@ -104,25 +126,20 @@ function AccountPage() {
 						className="button navbar--button font-color--white mt-16 mb-16"
 						onClick={signInClickHandler}
 					>
-						Sign In
+						Register
 					</button>
-					<p className="mt-8 mb-8">
-						Don't have an account?
+					<p>
+						Already have an account?
 						<Link
-							to="/register"
+							to="/my-account"
 							className="color-success ls-1 fw-600 ml-5 mr-5 link-text"
 						>
-							Register
+							Login
 						</Link>
 						here
 					</p>
-					<p className="mt-8 fw-600">Test Credentials</p>
-					<p className="fw-600">Email: check123@gmail.com</p>
-					<p className="fw-600">Password: check@123</p>
 				</>
 			)}
 		</div>
 	);
 }
-
-export default AccountPage;

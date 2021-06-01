@@ -9,18 +9,19 @@ import { useDocumentTitle } from "./utils/useDocumentTitle";
 import Routes from "./routes";
 
 function App() {
-	const { loadEssentials, state } = useECommerceContext();
+	const { loadEssentials, state, loadUser } = useECommerceContext();
 	useDocumentTitle("Home | CricShop");
 
 	useEffect(() => {
 		let isMounted = true;
 		if (isMounted) {
 			loadEssentials();
+			loadUser();
 		}
 		return () => {
 			isMounted = false;
 		};
-	}, [state.isAuthenticated]);
+	}, []);
 
 	toast.configure();
 

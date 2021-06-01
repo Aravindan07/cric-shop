@@ -10,16 +10,16 @@ export default function Cart() {
 
 	return (
 		<div className="padding-l24 padding-r24 padding-t24 padding-b24">
-			{state.cartList.length > 0 ? (
+			{state.cartList?.products?.length > 0 ? (
 				<PlaceOrder />
 			) : (
 				<p className="text-center">Your cart is empty!</p>
 			)}
 
-			{state.cartList.map((item) => {
+			{state.cartList?.products?.map((item) => {
 				return (
 					<div key={item._id} className="mb-16">
-						<ProductDescriptionCard key={item.id} productToShow={item} />
+						<ProductDescriptionCard key={item._id} productToShow={item} />
 						<hr />
 					</div>
 				);
