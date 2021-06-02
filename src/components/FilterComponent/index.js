@@ -19,8 +19,8 @@ export default function FilterComponent() {
 	};
 
 	return (
-		<>
-			<div className="mb-32 mr-8 ml-8 padding-l8 padding-r8 padding-t16 padding-b16 filter-container border-5 flex-col-center">
+		<div className="flex-col-center filter-container mb-32 mr-8 ml-8 mt-8 padding-l8 padding-r8 padding-t16 padding-b16 border-5">
+			<div className="flex-row-center">
 				<fieldset className="flex-col padding-l16 padding-r16 padding-t16 padding-b16 border-none ml-16 mr-16">
 					<legend className="color-success fw-600 text-center">Sort By</legend>
 					<label className="mb-8">
@@ -67,10 +67,10 @@ export default function FilterComponent() {
 						Fast Delivery Only
 					</label>
 				</fieldset>
-				<p className="danger-text fw-600 c-pointer" onClick={clearFilters}>
-					Clear Filters
-				</p>
 			</div>
-		</>
+			<div className="danger-text fw-600 c-pointer" onClick={clearFilters}>
+				Clear Filters
+			</div>
+		</div>
 	);
 }

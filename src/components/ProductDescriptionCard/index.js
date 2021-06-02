@@ -59,7 +59,7 @@ function ProductDescriptionCard({ productToShow }) {
 
 	const addItemToCart = (item) => {
 		if (isAuthenticated && cartItems(item).length > 0) {
-			return history.push("/cart");
+			return history.push(`/user/${user._id}/cart`);
 		}
 		if (
 			(isAuthenticated && cartItems(item).length === 0) ||
@@ -82,7 +82,7 @@ function ProductDescriptionCard({ productToShow }) {
 	};
 
 	return (
-		<>
+		<div className="padding-l24 padding-r24 padding-t24 padding-b24">
 			{productToShow && (
 				<div className="product-container">
 					<div className="image-wishlist-icon-container">
@@ -234,7 +234,7 @@ function ProductDescriptionCard({ productToShow }) {
 					</div>
 				</div>
 			)}
-		</>
+		</div>
 	);
 }
 

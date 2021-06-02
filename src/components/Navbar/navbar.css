@@ -10,12 +10,12 @@
 	position: absolute;
 	top: -7px;
 	left: 14px;
-	width: 15px;
-	height: 15px;
+	width: 18px;
+	height: 18px;
 	border: 2px solid var(--background-color);
-	line-height: 12.5px;
+	line-height: 13.5px;
 	text-align: center;
-	font-size: 8px;
+	font-size: 10px;
 }
 
 .profile__image {

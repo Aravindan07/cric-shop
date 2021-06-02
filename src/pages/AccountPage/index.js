@@ -64,7 +64,7 @@ function AccountPage() {
 				</>
 			) : (
 				<>
-					<h2>Login to your account</h2>
+					<h2 className="mt-32">Login to your account</h2>
 					<div className="input-wrap mt-16">
 						<label
 							htmlFor="email"

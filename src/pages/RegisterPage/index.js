@@ -70,7 +70,7 @@ export default function RegisterPage() {
 				</>
 			) : (
 				<>
-					<h2 className="mt-16">Create your account</h2>
+					<h2 className="mt-32">Create your account</h2>
 					<div className="input-wrap mt-16">
 						<label
 							htmlFor="name"

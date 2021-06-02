@@ -63,7 +63,7 @@ export function mainReducer(state, { type, payload }) {
 		case Actions.CLEAR__FILTERS:
 			return {
 				...state,
-				includeOutOfStock: true,
+				includeOutOfStock: false,
 				showFastDeliveryOnly: false,
 				sortBy: null,
 			};

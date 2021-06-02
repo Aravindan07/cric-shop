@@ -42,6 +42,9 @@ function Card({ item }) {
 				<div className="image-container">
 					<img src={item.imageUrl} alt="Card Header" />
 				</div>
+				{item.delivery === "Fast" && (
+					<div className="fast-delivery-badge">Fast Delivery</div>
+				)}
 				<div className="card__body">
 					<div className="wishlist-icon-container">
 						<WishListIcon

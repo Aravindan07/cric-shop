@@ -1,10 +1,12 @@
-.product-container {
+.product-container,
+.product-description-container {
 	max-width: 100%;
 	padding: 0 1rem;
 	position: relative;
 }
 
-.product-container-img {
+.product-container-img,
+.product-description-container-img {
 	width: 100%;
 }
 
@@ -57,14 +59,19 @@
 	.product-description-body {
 		padding: 0;
 	}
+	.product-description-container {
+		padding: 0 0rem;
+	}
 }
 
 @media only screen and (min-width: 768px) {
-	.product-container {
+	.product-container,
+	.product-description-container {
 		display: flex;
 		min-height: 300px;
 	}
-	.product-container-img {
+	.product-container-img,
+	.product-description-container-img {
 		width: 40%;
 		height: 100%;
 	}

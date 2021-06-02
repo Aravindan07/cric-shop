@@ -62,7 +62,7 @@ function Navbar() {
 									{state.wishList.products.length}
 								</div>
 							)}
-							<Link className="display-block" to="/wishlist">
+							<Link className="display-block" to={`/user/${state.user._id}/wishlist`}>
 								<HeartIcon className="nav-icon-dimensions c-pointer" />
 							</Link>
 						</div>
@@ -72,7 +72,7 @@ function Navbar() {
 									{state.cartList.products.length}
 								</div>
 							)}
-							<Link className="display-block" to="/cart">
+							<Link className="display-block" to={`/user/${state.user._id}/cart`}>
 								<CartIcon className="nav-icon-dimensions c-pointer" />
 							</Link>
 						</div>

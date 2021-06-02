@@ -1,12 +1,15 @@
 import React from "react";
 import Card from "../../components/Card";
 import { useECommerceContext } from "../../context";
+import { useScrollToTop } from "../../utils/scrollToTop";
 import { useDocumentTitle } from "../../utils/useDocumentTitle";
 
 function Wishlist() {
 	const { state } = useECommerceContext();
 
 	useDocumentTitle("WishList | CricShop");
+
+	useScrollToTop();
 
 	return (
 		<>

@@ -57,6 +57,20 @@
 	padding: 0.2rem;
 }
 
+.fast-delivery-badge {
+	position: absolute;
+	top: 1rem;
+	font-size: 14px;
+	line-height: 1.65;
+	font-weight: 500;
+	color: #fff;
+	padding: 0 8px;
+	border-radius: 2px;
+	background-color: #64bc26;
+	color: var(--background-color);
+	letter-spacing: 1px;
+}
+
 @media screen and (min-width: 430px) {
 	.flex-row-center {
 		display: flex;

@@ -12,8 +12,8 @@ function Routes() {
 	return (
 		<Switch>
 			<Route path="/" exact component={Products} />
-			<PrivateRoute exact path="/cart" component={Cart} />
-			<PrivateRoute exact path="/wishlist" component={Wishlist} />
+			<PrivateRoute exact path="/user/:userId/cart" component={Cart} />
+			<PrivateRoute exact path="/user/:userId/wishlist" component={Wishlist} />
 			<Route path="/products/:productId" component={ProductDescription} />
 			<Route path="/categories/:categoryName" component={ProductsByCategory} />
 			<Route path="/my-account" component={AccountPage} />

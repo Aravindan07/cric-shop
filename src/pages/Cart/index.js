@@ -3,13 +3,15 @@ import ProductDescriptionCard from "../../components/ProductDescriptionCard";
 import PlaceOrder from "../../components/PlaceOrder";
 import "./cart.css";
 import { useDocumentTitle } from "../../utils/useDocumentTitle";
+import { useScrollToTop } from "../../utils/scrollToTop";
 
 export default function Cart() {
 	const { state } = useECommerceContext();
 	useDocumentTitle("Cart | CricShop");
+	useScrollToTop();
 
 	return (
-		<div className="padding-l24 padding-r24 padding-t24 padding-b24">
+		<>
 			{state.cartList?.products?.length > 0 ? (
 				<PlaceOrder />
 			) : (
@@ -24,6 +26,6 @@ export default function Cart() {
 					</div>
 				);
 			})}
-		</div>
+		</>
 	);
 }

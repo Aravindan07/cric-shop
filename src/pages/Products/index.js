@@ -6,6 +6,7 @@ import FilterComponent from "../../components/FilterComponent";
 import { NavLink } from "react-router-dom";
 import "./products.css";
 import { useEffect, useState } from "react";
+import { useScrollToTop } from "../../utils/scrollToTop";
 
 function Products() {
 	const {
@@ -29,14 +30,18 @@ function Products() {
 		sortedDataAfterSearch
 	);
 
+	useScrollToTop();
+
 	useEffect(() => {
 		if (searchText === "") {
 			return setSearchedItems([]);
 		}
-		const searchedData =
+		let searchedData =
 			filteredData &&
 			filteredData.filter((data) =>
 				data.name.toLowerCase().includes(searchText.toLowerCase())
+					? data.name.toLowerCase().includes(searchText.toLowerCase())
+					: data.brand.toLowerCase().includes(searchText.toLowerCase())
 			);
 		setSearchedItems(searchedData);
 
@@ -51,7 +56,7 @@ function Products() {
 			<div className="flex-row-center mt-16 mb-16">
 				<NavLink
 					to="/"
-					className="category-button padding-t8 padding-b8 padding-l8 padding-r8 ml-16 mr-16 c-pointer br-10 ls-1"
+					className="category-button padding-t8 padding-b8 padding-l8 padding-r8 ml-16 mr-16 mt-8 mb-8 c-pointer br-10 ls-1"
 				>
 					All
 				</NavLink>
@@ -61,7 +66,7 @@ function Products() {
 							pathname: `/categories/${category.categoryName}`,
 						}}
 						key={category._id}
-						className="category-button padding-t8 padding-b8 padding-l8 padding-r8 ml-16 mr-16 c-pointer br-10 ls-1"
+						className="category-button padding-t8 padding-b8 padding-l8 padding-r8 ml-16 mr-16 mt-8 mb-8 c-pointer br-10 ls-1"
 						activeClassName="active-style"
 					>
 						{category.categoryName}
@@ -80,10 +85,6 @@ function Products() {
 					</>
 				)}
 			</div>
-			{/* <div className="padding-r8 padding-l8 mt-16 flex-row-center">
-				{searchItems.length > 0 &&
-					searchItems.map((item) => <Card key={item._id} item={item} />)}
-			</div> */}
 		</>
 	);
 }
