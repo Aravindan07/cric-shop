@@ -39,7 +39,7 @@ function ProductDescriptionCard({ productToShow }) {
 	};
 
 	const cartItems = (item) =>
-		cartList.products.length > 0 &&
+		cartList?.products?.length > 0 &&
 		cartList.products.filter((el) => el.product._id === item._id);
 
 	const incOrDecQuantityHandler = (item, operation) => {

@@ -113,7 +113,8 @@ export default function ECommerceContextProvider({ children }) {
 			return history.goBack();
 		} catch (error) {
 			console.error(error);
-			return toast.error("Invalid Credentials", {
+			console.log(error.response);
+			return toast.error(error.response.data.message, {
 				style: { backgroundColor: "#b91538" },
 				autoClose: 2000,
 				hideProgressBar: true,

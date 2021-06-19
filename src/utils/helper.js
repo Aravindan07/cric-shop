@@ -6,13 +6,13 @@ export function useHelperMethods(itemId) {
 	} = useECommerceContext();
 
 	const checkWishlist = () =>
-		wishList.products &&
-		wishList.products.length > 0 &&
+		wishList?.products &&
+		wishList.products?.length > 0 &&
 		wishList.products.find((el) => el._id === itemId);
 
 	const wishlistItems =
-		wishList.products &&
-		wishList.products.length &&
+		wishList?.products &&
+		wishList.products?.length &&
 		wishList.products.filter((el) => el._id === itemId);
 
 	const fillColorAssigner = () => {

@@ -62,7 +62,10 @@ function Navbar() {
 									{state.wishList.products.length}
 								</div>
 							)}
-							<Link className="display-block" to={`/user/${state.user._id}/wishlist`}>
+							<Link
+								className="display-block"
+								to={`/user/${state?.user?._id ? state.user._id : "user"}/wishlist`}
+							>
 								<HeartIcon className="nav-icon-dimensions c-pointer" />
 							</Link>
 						</div>
@@ -72,7 +75,10 @@ function Navbar() {
 									{state.cartList.products.length}
 								</div>
 							)}
-							<Link className="display-block" to={`/user/${state.user._id}/cart`}>
+							<Link
+								className="display-block"
+								to={`/user/${state?.user?._id ? state.user._id : "user"}/cart`}
+							>
 								<CartIcon className="nav-icon-dimensions c-pointer" />
 							</Link>
 						</div>
