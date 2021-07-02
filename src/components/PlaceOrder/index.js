@@ -52,7 +52,6 @@ export default function PlaceOrder() {
 			amount: cartList.products.reduce(totalPrice, 0),
 			currency: "INR",
 		});
-		console.log(data);
 
 		const options = {
 			key: "rzp_test_qhqsq3DEcMOno7",
