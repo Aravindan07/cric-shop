@@ -19,7 +19,7 @@ export default function FilterComponent() {
 	};
 
 	return (
-		<div className="flex-col-center filter-container mb-32 mr-8 ml-8 mt-8 padding-l8 padding-r8 padding-t16 padding-b16 border-5">
+		<div className="flex-col-center filter-container mb-32 padding-l8 padding-r8 padding-t16 padding-b16 outer-div">
 			<div className="flex-row-center">
 				<fieldset className="flex-col padding-l16 padding-r16 padding-t16 padding-b16 border-none ml-16 mr-16">
 					<legend className="color-success fw-600 text-center">Sort By</legend>

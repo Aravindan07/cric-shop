@@ -17,6 +17,7 @@ function Products() {
 			products,
 			categories,
 			searchText,
+			showFilters,
 		},
 	} = useECommerceContext();
 	const [searchItems, setSearchedItems] = useState([]);
@@ -50,7 +51,7 @@ function Products() {
 
 	return (
 		<>
-			<FilterComponent />
+			{showFilters && <FilterComponent />}
 			<CarouselSlider />
 			<h2 className="text-center mt-16">Pick & Play</h2>
 			<div className="flex-row-center mt-16 mb-16">

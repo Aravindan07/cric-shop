@@ -104,12 +104,27 @@ export function mainReducer(state, { type, payload }) {
 				...state,
 				isAuthenticated: false,
 				user: null,
+				wishList: [],
+				cartList: [],
 			};
 
 		case Actions.SET__SEARCH__TEXT:
 			return {
 				...state,
 				searchText: payload,
+			};
+
+		case Actions.SET_PAID:
+			return {
+				...state,
+				isPaid: payload.paid,
+				cartList: [],
+			};
+
+		case Actions.SHOW_FILTERS:
+			return {
+				...state,
+				showFilters: !state.showFilters,
 			};
 
 		default:

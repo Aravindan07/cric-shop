@@ -18,6 +18,8 @@ export const initialState = {
 	isLoading: false,
 	message: null,
 	isAuthenticated: false,
+	isPaid: false,
+	showFilters: false,
 };
 
 const { REACT_APP_BACKEND_URL } = process.env;

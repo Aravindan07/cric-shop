@@ -1,20 +1,27 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ReactComponent as CartIcon } from "../../icons/cart-icon.svg";
 import { ReactComponent as HeartIcon } from "../../icons/heart-icon.svg";
 import { ReactComponent as Logo } from "../../icons/cricket.svg";
+import { ReactComponent as FilterIcon } from "../../icons/filter.svg";
 import SearchIcon from "../../icons/search.svg";
 import { useECommerceContext } from "../../context";
+import { SET__SEARCH__TEXT, SHOW_FILTERS } from "../../constants";
 import "./navbar.css";
-import { SET__SEARCH__TEXT } from "../../constants";
 
 function Navbar() {
 	const { state, dispatch } = useECommerceContext();
 	const [searchTerm, setSearchTerm] = useState("");
 
+	const location = useLocation();
+
 	const searchInputHandler = (e) => {
 		setSearchTerm(e.target.value);
 		return dispatch({ type: SET__SEARCH__TEXT, payload: e.target.value });
+	};
+
+	const showFiltersHandler = () => {
+		dispatch({ type: SHOW_FILTERS });
 	};
 
 	return (
@@ -55,6 +62,15 @@ function Navbar() {
 									Sign In
 								</button>
 							</Link>
+						)}
+						{location.pathname === "/" && (
+							<div className="icons-div">
+								<FilterIcon
+									className="nav-icon-dimensions c-pointer"
+									fill={state.showFilters ? "#cdcdcd" : "#fff"}
+									onClick={showFiltersHandler}
+								/>
+							</div>
 						)}
 						<div className="icons-div">
 							{state.wishList?.products?.length > 0 && (

@@ -20,3 +20,5 @@ export const SET__LOGOUT = "SET__LOGOUT";
 export const SET__SIGNUP = "SET__SIGNUP";
 export const LOAD__USER = "LOAD__USER";
 export const SET__SEARCH__TEXT = "SET__SEARCH__TEXT";
+export const SET_PAID = "SET_PAID";
+export const SHOW_FILTERS = "SHOW_FILTERS";

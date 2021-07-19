@@ -1,8 +1,8 @@
 import { useECommerceContext } from "../../context";
-import { toast } from "react-toastify";
-import "./placeOrder.css";
-import { useHistory } from "react-router";
 import axios from "axios";
+import { SET_PAID } from "../../constants";
+import "./placeOrder.css";
+import { toast } from "react-toastify";
 
 async function loadScript(src) {
 	return new Promise((resolve) => {
@@ -21,24 +21,14 @@ async function loadScript(src) {
 export default function PlaceOrder() {
 	const {
 		state: { cartList },
+		dispatch,
 	} = useECommerceContext();
-
-	const history = useHistory();
 
 	const totalPrice = (accumulator, currentValue) =>
 		accumulator + currentValue.quantity * currentValue.product.price;
 
 	const totalQuantity = (accumulator, currentValue) =>
 		accumulator + Number(currentValue.quantity);
-
-	const notify = () => {
-		toast.success("Order placed Successfully!", {
-			hideProgressBar: true,
-			autoClose: 3000,
-			className: "toast-div",
-		});
-		return setTimeout(() => history.replace("/"), 2000);
-	};
 
 	async function displayRazorPay() {
 		const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
@@ -62,15 +52,22 @@ export default function PlaceOrder() {
 			description: "Thank you for purchasing!",
 			image: "https://cric-shop.netlify.app/cricket-logo.svg",
 			handler: function (response) {
-				alert("payment done");
+				dispatch({ type: SET_PAID, payload: { paid: true } });
+				toast.success("Payment Done Successfully", {
+					style: {
+						letterSpacing: "0.8px",
+					},
+					autoClose: 2000,
+					hideProgressBar: true,
+				});
 				// alert(response.razorpay_payment_id);
 				// alert(response.razorpay_order_id);
 				// alert(response.razorpay_signature);
 			},
 			prefill: {
-				// name: "Gaurav Kumar",
-				// email: "gaurav.kumar@example.com",
-				// contact: "9999999999",
+				name: "User",
+				email: "user@example.com",
+				contact: "9999999999",
 			},
 			notes: {
 				address: "Razorpay Corporate Office",
