@@ -46,7 +46,7 @@ function Navbar() {
 					</div>
 
 					<div className="flex-row-space-between">
-						{state.isAuthenticated ? (
+						{state.isAuthenticated && !state.isLoading ? (
 							<Link to="/my-account">
 								<div className="profile__image c-pointer">
 									<img
@@ -57,11 +57,15 @@ function Navbar() {
 								</div>
 							</Link>
 						) : (
-							<Link to="/my-account">
-								<button className="button navbar--button font-color--white mr-16">
-									Sign In
-								</button>
-							</Link>
+							<>
+								{!state.isLoading && (
+									<Link to="/my-account">
+										<button className="button navbar--button font-color--white mr-16">
+											Sign In
+										</button>
+									</Link>
+								)}
+							</>
 						)}
 						{location.pathname === "/" && (
 							<div className="icons-div">
