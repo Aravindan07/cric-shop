@@ -1,0 +1,23 @@
+.outer-div {
+	position: fixed;
+	top: 56px;
+	width: 100%;
+	z-index: 20;
+	background-color: #fff;
+}
+
+.filter-container {
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+	max-width: 100%;
+}
+
+.danger-text {
+	color: var(--complementary-color);
+	text-transform: uppercase;
+}
+
+@media screen and (max-width: 680px) {
+	.outer-div {
+		top: 90px;
+	}
+}
